@@ -1,26 +1,33 @@
 ﻿using HexaSamples.Commons.Entities;
 using HexaSamples.Commons.Results;
+using HexaSamples.Domain.SupportEntities;
+
+#pragma warning disable CS8618
 
 namespace HexaSamples.Domain.OrdemAggregate
 {
     public class OrdemDeVenda : AggregateRoot<Guid>
     {
-        private ICollection<ItemVenda> _itens;
+        private ICollection<ItemVenda>? _itens;
 
         public OrdemDeVenda(Loja loja, Pessoa cliente)
         {
             Loja = loja ?? throw new ArgumentNullException(nameof(loja));
             Cliente = cliente ?? throw new ArgumentNullException(nameof(cliente));
-            DataCriacao = DateTime.Now;
+            DataCriacao = DateTimeOffset.Now;
             Situacao = OrdemSituacao.EmEdicao;
-            _itens = new List<ItemVenda>();
         }
+        
+        /// <summary>
+        /// Construtor for deserializers.
+        /// </summary>
+        protected OrdemDeVenda() { }
 
         public virtual Loja Loja { get; private set; }
 
         public virtual Pessoa Cliente { get; private set; }
 
-        public DateTimeOffset DataCriacao { get; private set; }
+        public DateTimeOffset DataCriacao { get; }
 
         public OrdemSituacao Situacao { get; private set; }
 
@@ -36,8 +43,24 @@ namespace HexaSamples.Domain.OrdemAggregate
             }
         }
 
+        public IResult CorrigirLojaEtCliente(Loja loja, Pessoa cliente)
+        {
+            var guard = GuardSituacaoParaAlterar();
+            if (!guard.Success)
+                return guard;
+
+            Loja = loja;
+            Cliente = cliente;
+
+            return BaseResult.ImmutableSuccess;
+        }
+        
         public IResult AdicionarProduto(Produto produto, int quantidade = 1)
         {
+            var guard = GuardSituacaoParaAlterar();
+            if (!guard.Success)
+                return guard;
+            
             if (quantidade <= 0)
                 return BaseResult.InvalidParameters("Quantidade deve ser maior que zero (0)", nameof(quantidade));
 
@@ -57,83 +80,104 @@ namespace HexaSamples.Domain.OrdemAggregate
 
             return BaseResult.ImmutableFailure;
         }
-    }
 
-    public enum OrdemSituacao
-    {
-        EmEdicao,
-        Fechada,
-        Cancelada,
-
-        // as situações daqui em diante seriam opcionais,
-        // é uma questão de design para atender as regras de negócio.
-        // se poderia deixar as opções adiante para outras entidades,
-        // como de processo de finalização da ordem e processo de entrega.
-        // Estas outras entidades, que são de contexto diferentes,
-        // poderiam ter suas situações, mas ainda poderia ser replicada a
-        // situação para a ordem.
-        // É uma decisão de design que seria tomada dependendo das regras de negócio.
-
-        Reservada,
-        Paga,
-        Despachada,
-        Entregue,
-        Finalizada
-    }
-
-
-    public class ItemVenda : Entity<long>
-    {
-        public ItemVenda(Loja loja, Produto produto, int quantidade)
+        public IResult RemoverQuantidadeDoProduto(Guid produtoId, int quantidade = 1)
         {
-            Produto = produto;
-            Quantidade = quantidade;
-            ValorUnitario = produto.ObterPreçoVenda(loja);
+            var guard = GuardSituacaoParaAlterar();
+            if (!guard.Success)
+                return guard;
+            
+            if (quantidade <= 0)
+                return BaseResult.InvalidParameters("Quantidade deve ser maior que zero (0)", nameof(quantidade));
+            
+            var item = InternalItens.FirstOrDefault(i => i.Produto.Id == produtoId);
+            if (item is null)
+                return BaseResult.InvalidParameters("Produto não encontrado na ordem de venda", nameof(produtoId));
+            
+            item.RemoverQuantidade(quantidade);
+
+            return BaseResult.ImmutableSuccess;
         }
 
-        public Produto Produto { get; private set; }
-
-        public int Quantidade { get; private set; }
-
-        public decimal ValorUnitario { get; private set; }
-
-        internal void AdicionarQuantidade(int quantidade)
-            => Quantidade += quantidade;
-    }
-
-    public class Produto : Entity<Guid, string>
-    {
-        public string Descricao { get; private set; }
-
-        public virtual ICollection<PrecoVenda> PrecoVenda { get; private set; }
-
-        internal decimal ObterPreçoVenda(Loja loja)
+        public IResult RemoverProduto(Guid produtoId)
         {
-            var preco = PrecoVenda.FirstOrDefault(p => p.Loja.Id == loja.Id)
-                ?? PrecoVenda.FirstOrDefault();
+            var guard = GuardSituacaoParaAlterar();
+            if (!guard.Success)
+                return guard;
+            
+            var item = InternalItens.FirstOrDefault(i => i.Produto.Id == produtoId);
+            if (item is null)
+                return BaseResult.InvalidParameters("Produto não encontrado na ordem de venda", nameof(produtoId));
 
-            return preco?.Valor ?? 0;
+            InternalItens.Remove(item);
+            
+            return  BaseResult.ImmutableSuccess;
         }
-    }
 
-    public class Loja : Entity<Guid, int>
-    {
-        public string RazaoSocial { get; private set; }
+        public IResult Fechar()
+        {
+            if (Situacao is not OrdemSituacao.EmEdicao)
+                return BaseResult.ValidationError(
+                    $"Não é possível fechar a ordem de venda, a situação '{Situacao}' é inválida.");
+            
+            Situacao = OrdemSituacao.Fechada;
+            return BaseResult.ImmutableSuccess;
+        }
 
-        public string NomeFantasia { get; private set; }
+        /// <summary>
+        /// <para>
+        ///     Uma ordem de venda poderá ser cancelada enquanto não for despachada ao cliente.
+        /// </para>
+        /// <para>
+        ///     Se o cliente devolver a compra, o ordem de venda não será alterada, mas será criado uma devolução
+        ///     para o cliente.
+        /// </para>
+        /// <para>
+        ///     Se o cliente não receber a encomenta, e a transportadora retornar o produto, a ordem será movida
+        ///     para retornado, e um incidente será aberto. Depois disto a ordem pode ser cancelada ou re-enviada.
+        /// </para>
+        /// </summary>
+        /// <returns>
+        ///     Resultado da operação.
+        /// </returns>
+        public IResult Cancelar()
+        {
+            if (Situacao is OrdemSituacao.Despachada 
+                or OrdemSituacao.Entregue
+                or OrdemSituacao.Finalizada
+                or OrdemSituacao.Cancelada)
+                return BaseResult.ValidationError(
+                    $"Não é possível cancelar a ordem de venda, a situação '{Situacao}' é inválida.");
+            
+            Situacao = OrdemSituacao.Cancelada;
+            return BaseResult.ImmutableSuccess;
+        }
 
-        public string Cnpj { get; private set; }
-    }
+        
+        public IResult AtualizarSituacaoDoAndamento(OrdemSituacao situacao)
+        {
+            if (Situacao is OrdemSituacao.EmEdicao 
+                or OrdemSituacao.Finalizada
+                or OrdemSituacao.Cancelada)
+                return BaseResult.ValidationError(
+                    $"Não é possível atualizar o andamento da ordem de venda, a situação atual '{Situacao}' é inválida.");
+            
+            if (situacao is OrdemSituacao.EmEdicao
+                or OrdemSituacao.Cancelada
+                or OrdemSituacao.Fechada)
+                return BaseResult.InvalidParameters(
+                    "A situação informada não é permitida", nameof(situacao));
 
-    public class PrecoVenda : Entity<Guid>
-    {
-        public Loja Loja { get; private set; }
+            Situacao = situacao;
+            return BaseResult.ImmutableSuccess;
+        }
 
-        public decimal Valor { get; private set; }
-    }
-
-    public class Pessoa : Entity<Guid>
-    {
-
+        private IResult GuardSituacaoParaAlterar()
+        {
+            return Situacao is not OrdemSituacao.EmEdicao
+                ? BaseResult.ValidationError(
+                    $"Não é possível alterar a ordem de venda na situação atual ({Situacao}).")
+                : BaseResult.ImmutableSuccess;
+        }
     }
 }
