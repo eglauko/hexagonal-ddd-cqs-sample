@@ -13,7 +13,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infra", "Infra", "{EECBE110
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Apps", "Apps", "{48F96FF9-2FC4-4238-94AE-1BC9B8A8F514}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HexaSamples.Commons.Data.Abstractions", "HexaSamples.Commons.Data.Abstractions\HexaSamples.Commons.Data.Abstractions.csproj", "{80B68331-318A-446C-ABAB-D8693A6FB4DD}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HexaSamples.Commons.Persistence.Abstractions", "HexaSamples.Commons.Persistence.Abstractions\HexaSamples.Commons.Persistence.Abstractions.csproj", "{80B68331-318A-446C-ABAB-D8693A6FB4DD}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HexaSamples.Commons.Entities", "HexaSamples.Commons.Entities\HexaSamples.Commons.Entities.csproj", "{4734CE71-DF3A-4AE7-9948-BEB7335DEC4A}"
 EndProject
@@ -21,7 +21,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HexaSamples.Commons.Applica
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HexaSamples.Commons.Results", "HexaSamples.Commons.Results\HexaSamples.Commons.Results.csproj", "{96096843-366B-411D-8B85-20C0125AB87F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HexaSamples.Commons.Data.EntityFrameworkCore", "HexaSamples.Commons.Data.EntityFrameworkCore\HexaSamples.Commons.Data.EntityFrameworkCore.csproj", "{878B1088-A850-4AFA-AA16-9E06170EC24A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HexaSamples.Commons.Persistence.EntityFrameworkCore", "HexaSamples.Commons.Persistence.EntityFrameworkCore\HexaSamples.Commons.Persistence.EntityFrameworkCore.csproj", "{878B1088-A850-4AFA-AA16-9E06170EC24A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HexaSamples.Application.Handlers", "HexaSamples.Application.Handlers\HexaSamples.Application.Handlers.csproj", "{B2A76558-0945-45D9-936E-759BD5311997}"
 EndProject

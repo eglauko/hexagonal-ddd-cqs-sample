@@ -1,6 +1,6 @@
 ﻿using HexaSamples.Commons.Entities;
 
-namespace HexaSamples.Commons.Data.Abstractions;
+namespace HexaSamples.Commons.Persistence.Abstractions;
 
 /// <summary>
 /// Interface de um serviço de dados.

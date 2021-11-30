@@ -1,7 +1,7 @@
 ﻿
 using HexaSamples.Commons.Results;
 
-namespace HexaSamples.Commons.Application.Data;
+namespace HexaSamples.Commons.Application.Persistence;
 
 /// <summary>
 /// Implementação de <see cref="ISaveResult"/>.

@@ -1,31 +1,31 @@
 ﻿
-using HexaSamples.Commons.Data.Abstractions;
+using HexaSamples.Commons.Persistence.Abstractions;
 using HexaSamples.Commons.Entities;
 using Microsoft.EntityFrameworkCore;
 
-namespace HexaSamples.Commons.Data.EntityFrameworkCore;
+namespace HexaSamples.Commons.Persistence.EntityFrameworkCore;
 
 public class Repository<TDbContext, TEntity> : IRepository<TEntity>
     where TDbContext : DbContext
     where TEntity : class
 {
-    private readonly TDbContext db;
+    private readonly TDbContext _db;
 
     public Repository(TDbContext dbContext)
     {
-        db = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
+        _db = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
     }
 
     /// <inheritdoc/>
-    public TEntity? Find(object id) => db.Set<TEntity>().Find(id);
+    public TEntity? Find(object id) => _db.Set<TEntity>().Find(id);
     
     /// <inheritdoc/>
     public ValueTask<TEntity?> FindAsync(object id, CancellationToken token = default)
-        => db.Set<TEntity>().FindAsync(new object[] { id }, token);
+        => _db.Set<TEntity>().FindAsync(new object[] { id }, token);
     
     /// <inheritdoc/>
     public void Add(TEntity entity) 
-        => db.Set<TEntity>()
+        => _db.Set<TEntity>()
             .Add(entity ?? throw new ArgumentNullException(nameof(entity)));
 
     /// <inheritdoc/>
@@ -34,11 +34,11 @@ public class Repository<TDbContext, TEntity> : IRepository<TEntity>
         if (model is null)
             throw new ArgumentNullException(nameof(model));
 
-        var entity = db.Set<TEntity>().Find(model.Id);
+        var entity = _db.Set<TEntity>().Find(model.Id);
         if (entity is null)
             return false;
 
-        var entry = db.Entry(entity);
+        var entry = _db.Entry(entity);
         entry.CurrentValues.SetValues(model);
 
         return true;
@@ -50,11 +50,11 @@ public class Repository<TDbContext, TEntity> : IRepository<TEntity>
         if (model is null)
             throw new ArgumentNullException(nameof(model));
 
-        var entity = await db.Set<TEntity>().FindAsync(new object[] { model.Id! }, token);
+        var entity = await _db.Set<TEntity>().FindAsync(new object[] { model.Id! }, token);
         if (entity is null)
             return false;
 
-        var entry = db.Entry(entity);
+        var entry = _db.Entry(entity);
         entry.CurrentValues.SetValues(model);
 
         return true;
@@ -63,17 +63,17 @@ public class Repository<TDbContext, TEntity> : IRepository<TEntity>
     /// <inheritdoc/>
     public void Remove(TEntity entity)
     {
-        var entry = db.Entry(entity);
+        var entry = _db.Entry(entity);
         entry.State = EntityState.Deleted;
     }
 
     /// <inheritdoc/>
     public TEntity? Delete(object id)
     {
-        var entity = db.Set<TEntity>().Find(id);
+        var entity = _db.Set<TEntity>().Find(id);
 
         if (entity is not null)
-            db.Entry(entity).State = EntityState.Deleted;
+            _db.Entry(entity).State = EntityState.Deleted;
 
         return entity;
     }
@@ -81,10 +81,10 @@ public class Repository<TDbContext, TEntity> : IRepository<TEntity>
     /// <inheritdoc/>
     public async Task<TEntity?> DeleteAsync(object id, CancellationToken token = default)
     {
-        var entity = await db.Set<TEntity>().FindAsync(new object[] { id }, token);
+        var entity = await _db.Set<TEntity>().FindAsync(new object[] { id }, token);
 
         if (entity != null)
-            db.Entry(entity).State = EntityState.Deleted;
+            _db.Entry(entity).State = EntityState.Deleted;
 
         return entity;
     }

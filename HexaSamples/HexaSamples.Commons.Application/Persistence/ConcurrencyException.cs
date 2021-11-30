@@ -1,5 +1,5 @@
 ﻿
-namespace HexaSamples.Commons.Application.Data;
+namespace HexaSamples.Commons.Application.Persistence;
 
 /// <summary>
 /// Exception para quando ocorrer falhas de concorrência no banco de dados.

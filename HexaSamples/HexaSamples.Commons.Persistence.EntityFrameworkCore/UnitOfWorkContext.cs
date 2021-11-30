@@ -1,15 +1,14 @@
-﻿
-using HexaSamples.Commons.Application.Data;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
 using System.ComponentModel.DataAnnotations;
+using HexaSamples.Commons.Application.Persistence;
 
-namespace HexaSamples.Commons.Data.EntityFrameworkCore;
+namespace HexaSamples.Commons.Persistence.EntityFrameworkCore;
 
 public class UnitOfWorkContext<TDbContext> : IUnitOfWorkContext, ITransaction
     where TDbContext : DbContext
 {
-    private IDbContextTransaction? dbContextTransaction;
+    private IDbContextTransaction? _dbContextTransaction;
 
     /// <summary>
     /// Construtor com a sessão para configurar o contexto de persistência e fornecer os serviços.
@@ -52,8 +51,8 @@ public class UnitOfWorkContext<TDbContext> : IUnitOfWorkContext, ITransaction
     /// </exception>
     public ITransaction BeginTransaction()
     {
-        if (dbContextTransaction is null)
-            dbContextTransaction = Db.Database.BeginTransaction();
+        if (_dbContextTransaction is null)
+            _dbContextTransaction = Db.Database.BeginTransaction();
         return this;
     }
 
@@ -85,8 +84,8 @@ public class UnitOfWorkContext<TDbContext> : IUnitOfWorkContext, ITransaction
     /// </exception>
     public async Task<ITransaction> BeginTransactionAsync(CancellationToken token = default)
     {
-        if (dbContextTransaction is null)
-            dbContextTransaction = await Db.Database.BeginTransactionAsync(token);
+        if (_dbContextTransaction is null)
+            _dbContextTransaction = await Db.Database.BeginTransactionAsync(token);
         return this;
     }
 
@@ -115,12 +114,12 @@ public class UnitOfWorkContext<TDbContext> : IUnitOfWorkContext, ITransaction
     /// </summary>
     public void Commit()
     {
-        if (dbContextTransaction is null)
+        if (_dbContextTransaction is null)
             throw new InvalidOperationException("The transaction is not created");
 
-        dbContextTransaction.Commit();
+        _dbContextTransaction.Commit();
 
-        dbContextTransaction = null;
+        _dbContextTransaction = null;
     }
 
     /// <summary>
@@ -128,12 +127,12 @@ public class UnitOfWorkContext<TDbContext> : IUnitOfWorkContext, ITransaction
     /// </summary>
     public void Rollback()
     {
-        if (dbContextTransaction is null)
+        if (_dbContextTransaction is null)
             throw new InvalidOperationException("The transaction is not created");
 
-        dbContextTransaction.Rollback();
+        _dbContextTransaction.Rollback();
 
-        dbContextTransaction = null;
+        _dbContextTransaction = null;
     }
 
     /// <summary>

@@ -1,4 +1,4 @@
-﻿namespace HexaSamples.Commons.Application.Data;
+﻿namespace HexaSamples.Commons.Application.Persistence;
 
 /// <summary>
 /// <para>
