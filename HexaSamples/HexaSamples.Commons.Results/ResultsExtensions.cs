@@ -91,28 +91,9 @@ public static class ResultsExtensions
     /// Adiciona uma mensagem informativa.
     /// </summary>
     /// <param name="text">Texto da mensagem.</param>
-    public static void AddInfo(this BaseResult result, string text)
-    {
-        result.AddMessage(MessageType.Info, text, string.Empty, string.Empty, null);
-    }
-
-    /// <summary>
-    /// Adiciona uma mensagem informativa.
-    /// </summary>
-    /// <param name="text">Texto da mensagem.</param>
-    /// <param name="property">Propriedade da mensagem.</param>
-    public static void AddInfo(this BaseResult result, string text, string property)
-    {
-        result.AddMessage(MessageType.Info, text, property, string.Empty, null);
-    }
-
-    /// <summary>
-    /// Adiciona uma mensagem informativa.
-    /// </summary>
-    /// <param name="text">Texto da mensagem.</param>
     /// <param name="property">Propriedade da mensagem.</param>
     /// <param name="code">Código da mensagem.</param>
-    public static void AddInfo(this BaseResult result, string text, string property, string code)
+    public static void AddInfo(this BaseResult result, string text, string? property = null, string? code = null)
     {
         result.AddMessage(MessageType.Info, text, property, code, null);
     }
@@ -121,28 +102,9 @@ public static class ResultsExtensions
     /// Adiciona uma mensagem de alerta.
     /// </summary>
     /// <param name="text">Texto da mensagem.</param>
-    public static void AddWarning(this BaseResult result, string text)
-    {
-        result.AddMessage(MessageType.Warning, text, string.Empty, string.Empty, null);
-    }
-
-    /// <summary>
-    /// Adiciona uma mensagem de alerta.
-    /// </summary>
-    /// <param name="text">Texto da mensagem.</param>
-    /// <param name="property">Propriedade da mensagem.</param>
-    public static void AddWarning(this BaseResult result, string text, string property)
-    {
-        result.AddMessage(MessageType.Warning, text, property, string.Empty, null);
-    }
-
-    /// <summary>
-    /// Adiciona uma mensagem de alerta.
-    /// </summary>
-    /// <param name="text">Texto da mensagem.</param>
     /// <param name="property">Propriedade da mensagem.</param>
     /// <param name="code">Código da mensagem.</param>
-    public static void AddWarning(this BaseResult result, string text, string property, string code)
+    public static void AddWarning(this BaseResult result, string text, string? property = null, string? code = null)
     {
         result.AddMessage(MessageType.Warning, text, property, code, null);
     }
@@ -151,40 +113,11 @@ public static class ResultsExtensions
     /// Adiciona uma mensagem de erro e muda o resultado para falha.
     /// </summary>
     /// <param name="text">Texto da mensagem.</param>
-    public static void AddError(this BaseResult result, string text)
-    {
-        result.AddMessage(MessageType.Error, text, string.Empty, string.Empty, null);
-    }
-
-    /// <summary>
-    /// Adiciona uma mensagem de erro e muda o resultado para falha.
-    /// </summary>
-    /// <param name="text">Texto da mensagem.</param>
-    /// <param name="property">Propriedade da mensagem.</param>
-    public static void AddError(this BaseResult result, string text, string property)
-    {
-        result.AddMessage(MessageType.Error, text, property, string.Empty, null);
-    }
-
-    /// <summary>
-    /// Adiciona uma mensagem de erro e muda o resultado para falha.
-    /// </summary>
-    /// <param name="text">Texto da mensagem.</param>
-    /// <param name="property">Propriedade da mensagem.</param>
-    /// <param name="code">Código da mensagem.</param>
-    public static void AddError(this BaseResult result, string text, string property, string code)
-    {
-        result.AddMessage(MessageType.Error, text, property, code, null);
-    }
-
-    /// <summary>
-    /// Adiciona uma mensagem de erro e muda o resultado para falha.
-    /// </summary>
-    /// <param name="text">Texto da mensagem.</param>
     /// <param name="property">Propriedade da mensagem.</param>
     /// <param name="code">Código da mensagem.</param>
     /// <param name="ex">Exception que gerou a mensagem.</param>
-    public static void AddError(this BaseResult result, string text, string property, string code, Exception ex)
+    public static void AddError(this BaseResult result, string text, 
+        string? property = null, string? code = null, Exception? ex = null)
     {
         result.AddMessage(MessageType.Error, text, property, code, ex);
     }
@@ -193,28 +126,9 @@ public static class ResultsExtensions
     /// Adiciona uma mensagem de erro e muda o resultado para falha.
     /// </summary>
     /// <param name="ex">Exception que gerou a mensagem.</param>
-    public static void AddError(this BaseResult result, Exception ex)
-    {
-        result.AddMessage(MessageType.Error, ex.Message, string.Empty, string.Empty, ex);
-    }
-
-    /// <summary>
-    /// Adiciona uma mensagem de erro e muda o resultado para falha.
-    /// </summary>
-    /// <param name="ex">Exception que gerou a mensagem.</param>
-    /// <param name="property">Propriedade da mensagem.</param>
-    public static void AddError(this BaseResult result, Exception ex, string property)
-    {
-        result.AddMessage(MessageType.Error, ex.Message, property, string.Empty, ex);
-    }
-
-    /// <summary>
-    /// Adiciona uma mensagem de erro e muda o resultado para falha.
-    /// </summary>
-    /// <param name="ex">Exception que gerou a mensagem.</param>
     /// <param name="property">Propriedade da mensagem.</param>
     /// <param name="code">Código da mensagem.</param>
-    public static void AddError(this BaseResult result, Exception ex, string property, string code)
+    public static void AddError(this BaseResult result, Exception ex, string? property = null, string? code = null)
     {
         result.AddMessage(MessageType.Error, ex.Message, property, code, ex);
     }
@@ -258,56 +172,12 @@ public static class ResultsExtensions
     /// <typeparam name="TResult">Tipo do resultado.</typeparam>
     /// <param name="result">Resultado da operação.</param>
     /// <param name="errorText">Mensagem de erro.</param>
-    /// <returns>A mesma instância de <paramref name="result"/> para chamadas encadeadas.</returns>
-    public static TResult WithError<TResult>(this TResult result, string errorText)
-        where TResult : BaseResult
-    {
-        result.AddError(errorText);
-        return result;
-    }
-
-    /// <summary>
-    /// Adiciona uma mensagem e retorna o mesmo objeto de resultado da operação.
-    /// </summary>
-    /// <typeparam name="TResult">Tipo do resultado.</typeparam>
-    /// <param name="result">Resultado da operação.</param>
-    /// <param name="errorText">Mensagem de erro.</param>
-    /// <param name="propertyName">Nome da propriedade</param>
-    /// <returns>A mesma instância de <paramref name="result"/> para chamadas encadeadas.</returns>
-    public static TResult WithError<TResult>(this TResult result, string errorText, string propertyName)
-        where TResult : BaseResult
-    {
-        result.AddError(errorText, propertyName);
-        return result;
-    }
-
-    /// <summary>
-    /// Adiciona uma mensagem e retorna o mesmo objeto de resultado da operação.
-    /// </summary>
-    /// <typeparam name="TResult">Tipo do resultado.</typeparam>
-    /// <param name="result">Resultado da operação.</param>
-    /// <param name="errorText">Mensagem de erro.</param>
-    /// <param name="propertyName">Nome da propriedade</param>
-    /// <param name="code">Código do erro.</param>
-    /// <returns>A mesma instância de <paramref name="result"/> para chamadas encadeadas.</returns>
-    public static TResult WithError<TResult>(this TResult result, string errorText, string propertyName, string code)
-        where TResult : BaseResult
-    {
-        result.AddError(errorText, propertyName, code);
-        return result;
-    }
-
-    /// <summary>
-    /// Adiciona uma mensagem e retorna o mesmo objeto de resultado da operação.
-    /// </summary>
-    /// <typeparam name="TResult">Tipo do resultado.</typeparam>
-    /// <param name="result">Resultado da operação.</param>
-    /// <param name="errorText">Mensagem de erro.</param>
     /// <param name="propertyName">Nome da propriedade</param>
     /// <param name="code">Código do erro.</param>
     /// <param name="ex">Exception ocorrida.</param>
     /// <returns>A mesma instância de <paramref name="result"/> para chamadas encadeadas.</returns>
-    public static TResult WithError<TResult>(this TResult result, string errorText, string propertyName, string code, Exception ex)
+    public static TResult WithError<TResult>(this TResult result, string errorText, 
+        string? propertyName = null, string? code = null, Exception? ex = null)
         where TResult : BaseResult
     {
         result.AddError(errorText, propertyName, code, ex);
@@ -320,39 +190,11 @@ public static class ResultsExtensions
     /// <typeparam name="TResult">Tipo do resultado.</typeparam>
     /// <param name="result">Resultado da operação.</param>
     /// <param name="ex">Exception ocorrida.</param>
-    /// <returns>A mesma instância de <paramref name="result"/> para chamadas encadeadas.</returns>
-    public static TResult WithError<TResult>(this TResult result, Exception ex)
-        where TResult : BaseResult
-    {
-        result.AddError(ex);
-        return result;
-    }
-
-    /// <summary>
-    /// Adiciona uma mensagem e retorna o mesmo objeto de resultado da operação.
-    /// </summary>
-    /// <typeparam name="TResult">Tipo do resultado.</typeparam>
-    /// <param name="result">Resultado da operação.</param>
-    /// <param name="ex">Exception ocorrida.</param>
-    /// <param name="propertyName">Nome da propriedade</param>
-    /// <returns>A mesma instância de <paramref name="result"/> para chamadas encadeadas.</returns>
-    public static TResult WithError<TResult>(this TResult result, Exception ex, string propertyName)
-        where TResult : BaseResult
-    {
-        result.AddError(ex, propertyName);
-        return result;
-    }
-
-    /// <summary>
-    /// Adiciona uma mensagem e retorna o mesmo objeto de resultado da operação.
-    /// </summary>
-    /// <typeparam name="TResult">Tipo do resultado.</typeparam>
-    /// <param name="result">Resultado da operação.</param>
-    /// <param name="ex">Exception ocorrida.</param>
     /// <param name="propertyName">Nome da propriedade</param>
     /// <param name="code">Código do erro.</param>
     /// <returns>A mesma instância de <paramref name="result"/> para chamadas encadeadas.</returns>
-    public static TResult WithError<TResult>(this TResult result, Exception ex, string propertyName, string code)
+    public static TResult WithError<TResult>(this TResult result, Exception ex, 
+        string? propertyName = null, string? code = null)
         where TResult : BaseResult
     {
         result.AddError(ex, propertyName, code);
@@ -364,27 +206,14 @@ public static class ResultsExtensions
     /// </summary>
     /// <typeparam name="TResult">Tipo do resultado.</typeparam>
     /// <param name="result">Resultado da operação.</param>
-    /// <param name="errorText">Mensagem de erro.</param>
-    /// <returns>A mesma instância de <paramref name="result"/> para chamadas encadeadas.</returns>
-    public static TResult WithSuccess<TResult>(this TResult result, string errorText)
-        where TResult : BaseResult
-    {
-        result.AddMessage(errorText);
-        return result;
-    }
-
-    /// <summary>
-    /// Adiciona uma mensagem e retorna o mesmo objeto de resultado da operação.
-    /// </summary>
-    /// <typeparam name="TResult">Tipo do resultado.</typeparam>
-    /// <param name="result">Resultado da operação.</param>
-    /// <param name="errorText">Mensagem de erro.</param>
+    /// <param name="text">Mensagem de sucesso.</param>
     /// <param name="propertyName">Nome da propriedade</param>
     /// <returns>A mesma instância de <paramref name="result"/> para chamadas encadeadas.</returns>
-    public static TResult WithSuccess<TResult>(this TResult result, string errorText, string propertyName)
+    public static TResult WithSuccess<TResult>(this TResult result, string text, 
+        string? propertyName = null, string? code = null)
         where TResult : BaseResult
     {
-        result.AddMessage(errorText, propertyName);
+        result.AddSuccess(text, propertyName, code);
         return result;
     }
 
@@ -393,27 +222,15 @@ public static class ResultsExtensions
     /// </summary>
     /// <typeparam name="TResult">Tipo do resultado.</typeparam>
     /// <param name="result">Resultado da operação.</param>
-    /// <param name="errorText">Mensagem de erro.</param>
-    /// <returns>A mesma instância de <paramref name="result"/> para chamadas encadeadas.</returns>
-    public static TResult WithInfo<TResult>(this TResult result, string errorText)
-        where TResult : BaseResult
-    {
-        result.AddInfo(errorText);
-        return result;
-    }
-
-    /// <summary>
-    /// Adiciona uma mensagem e retorna o mesmo objeto de resultado da operação.
-    /// </summary>
-    /// <typeparam name="TResult">Tipo do resultado.</typeparam>
-    /// <param name="result">Resultado da operação.</param>
-    /// <param name="errorText">Mensagem de erro.</param>
+    /// <param name="infoText">Mensagem de informação.</param>
     /// <param name="propertyName">Nome da propriedade</param>
+    /// <param name="code">Código da mensagem.</param>
     /// <returns>A mesma instância de <paramref name="result"/> para chamadas encadeadas.</returns>
-    public static TResult WithInfo<TResult>(this TResult result, string errorText, string propertyName)
+    public static TResult WithInfo<TResult>(this TResult result,
+        string infoText, string? propertyName = null, string? code = null)
         where TResult : BaseResult
     {
-        result.AddInfo(errorText, propertyName);
+        result.AddInfo(infoText, propertyName, code);
         return result;
     }
 
@@ -439,10 +256,11 @@ public static class ResultsExtensions
     /// <param name="errorText">Mensagem de erro.</param>
     /// <param name="propertyName">Nome da propriedade</param>
     /// <returns>A mesma instância de <paramref name="result"/> para chamadas encadeadas.</returns>
-    public static TResult WithWarning<TResult>(this TResult result, string errorText, string propertyName)
+    public static TResult WithWarning<TResult>(this TResult result, string errorText, 
+        string? propertyName = null, string? code = null)
         where TResult : BaseResult
     {
-        result.AddWarning(errorText, propertyName);
+        result.AddWarning(errorText, propertyName, code);
         return result;
     }
 

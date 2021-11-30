@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿
 namespace HexaSamples.Commons.Results;
 
 /// <summary>
@@ -119,10 +114,10 @@ public class BaseResult : IResult
     /// <param name="error">Texto da mensagem de erro.</param>
     /// <param name="property">Propriedade da mensagem de erro.</param>
     /// <returns>Nova instância.</returns>
-    public static BaseResult CreateFailure(string error, string property)
+    public static BaseResult CreateFailure(string error, string property, string? code = null)
     {
         var resultado = new BaseResult();
-        resultado.AddError(error, property);
+        resultado.AddError(error, property, code);
         return resultado;
     }
 
@@ -219,19 +214,11 @@ public class BaseResult : IResult
     /// Adiciona uma mensagem de sucesso.
     /// </summary>
     /// <param name="text">Texto da mensagem.</param>
-    public void AddMessage(string text)
-    {
-        AddMessage(MessageType.Success, text, string.Empty, string.Empty, null);
-    }
-
-    /// <summary>
-    /// Adiciona uma mensagem de sucesso.
-    /// </summary>
-    /// <param name="text">Texto da mensagem.</param>
     /// <param name="property">Propriedade da mensagem.</param>
-    public void AddMessage(string text, string property)
+    /// <param name="code">Código da mensagem.</param>
+    public void AddSuccess(string text, string? property = null, string? code = null)
     {
-        AddMessage(MessageType.Success, text, property, string.Empty, null);
+        AddMessage(MessageType.Success, text, property, code, null);
     }
 
     private static class Immutable
