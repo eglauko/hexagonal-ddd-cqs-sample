@@ -31,8 +31,11 @@ public class ItemVenda : Entity<long>
 
     public int Quantidade { get; private set; }
 
-    public decimal ValorUnitario { get; }
+    public decimal ValorUnitario { get; private set; }
 
+    internal void AtualizarPrecoVenda(Loja loja)
+        => ValorUnitario = Produto.ObterPrecoVenda(loja);
+    
     internal void AdicionarQuantidade(int quantidade)
         => Quantidade += quantidade;
 
