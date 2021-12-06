@@ -29,6 +29,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HexaSamples.Domain", "HexaS
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HexaSamples.Infra.Data", "HexaSamples.Infra.Data\HexaSamples.Infra.Data.csproj", "{4189607A-6369-4923-ABF0-E4D2D9974276}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HexaSamples.WebApi", "HexaSamples.WebApi\HexaSamples.WebApi.csproj", "{9C2E77A0-80C4-4C6E-B704-40752FF35140}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -71,6 +73,10 @@ Global
 		{4189607A-6369-4923-ABF0-E4D2D9974276}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4189607A-6369-4923-ABF0-E4D2D9974276}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4189607A-6369-4923-ABF0-E4D2D9974276}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9C2E77A0-80C4-4C6E-B704-40752FF35140}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9C2E77A0-80C4-4C6E-B704-40752FF35140}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9C2E77A0-80C4-4C6E-B704-40752FF35140}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9C2E77A0-80C4-4C6E-B704-40752FF35140}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -85,6 +91,7 @@ Global
 		{B2A76558-0945-45D9-936E-759BD5311997} = {62ADCCD5-98E4-49DC-A72A-6249EB52D46A}
 		{803011AF-A836-49B3-BEAF-537D8309B8F9} = {62ADCCD5-98E4-49DC-A72A-6249EB52D46A}
 		{4189607A-6369-4923-ABF0-E4D2D9974276} = {EECBE110-06BD-4DC8-B297-D88726AD2029}
+		{9C2E77A0-80C4-4C6E-B704-40752FF35140} = {48F96FF9-2FC4-4238-94AE-1BC9B8A8F514}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {205097E3-5A23-4754-95EA-2041B5101384}

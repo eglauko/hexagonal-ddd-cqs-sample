@@ -1,6 +1,8 @@
+using HexaSamples.Application.Cqs.Commons;
+
 namespace HexaSamples.Application.Cqs.Ordem;
 
-public class CriarOrdemDeVendaCommand
+public class CriarOrdemDeVendaCommand : CommandBase
 {
     public Guid PessoaId { get; set; }
 

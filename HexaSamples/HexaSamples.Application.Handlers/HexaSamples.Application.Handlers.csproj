@@ -10,4 +10,10 @@
     <Compile Remove="Class1.cs" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\HexaSamples.Application.Cqs\HexaSamples.Application.Cqs.csproj" />
+    <ProjectReference Include="..\HexaSamples.Commons.Application\HexaSamples.Commons.Application.csproj" />
+    <ProjectReference Include="..\HexaSamples.Commons.Persistence.Abstractions\HexaSamples.Commons.Persistence.Abstractions.csproj" />
+  </ItemGroup>
+
 </Project>

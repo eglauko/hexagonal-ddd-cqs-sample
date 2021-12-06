@@ -1,6 +1,8 @@
+using HexaSamples.Application.Cqs.Commons;
+
 namespace HexaSamples.Application.Cqs.Ordem;
 
-public class RemoverQuantidadeDoProdutoCommand
+public class RemoverQuantidadeDoProdutoCommand : CommandBase
 {
     public Guid OrdemDeVendaId { get; set; }
     

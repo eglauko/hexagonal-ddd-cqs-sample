@@ -1,6 +1,8 @@
+using HexaSamples.Application.Cqs.Commons;
+
 namespace HexaSamples.Application.Cqs.Ordem;
 
-public class CorrigirLojaEtClienteCommand
+public class CorrigirLojaEtClienteCommand: CommandBase
 {
     public Guid OrdemDeVendaId { get; set; }
     

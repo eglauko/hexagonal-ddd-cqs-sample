@@ -8,10 +8,15 @@
 
   <ItemGroup>
     <Compile Remove="Class1.cs" />
+    <Compile Remove="Commons\RequestContextExtensions.cs" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\HexaSamples.Domain\HexaSamples.Domain.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MediatR" Version="9.0.0" />
   </ItemGroup>
 
 </Project>
