@@ -5,7 +5,7 @@ VisualStudioVersion = 17.1.31911.260
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HexaSamples.Application.Cqs", "HexaSamples.Application.Cqs\HexaSamples.Application.Cqs.csproj", "{BDFD630E-64FB-4A6C-8A29-018BF2563492}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Commons", "Commons", "{B7425476-39D4-4A42-81CA-9283CC1E5A4B}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SeedWork", "SeedWork", "{B7425476-39D4-4A42-81CA-9283CC1E5A4B}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{62ADCCD5-98E4-49DC-A72A-6249EB52D46A}"
 EndProject
