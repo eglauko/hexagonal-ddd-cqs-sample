@@ -27,7 +27,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HexaSamples.Application.Han
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HexaSamples.Domain", "HexaSamples.Domain\HexaSamples.Domain.csproj", "{803011AF-A836-49B3-BEAF-537D8309B8F9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HexaSamples.Infra.Data", "HexaSamples.Infra.Data\HexaSamples.Infra.Data.csproj", "{4189607A-6369-4923-ABF0-E4D2D9974276}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HexaSamples.Infra.Persistence", "HexaSamples.Infra.Persistence\HexaSamples.Infra.Persistence.csproj", "{4189607A-6369-4923-ABF0-E4D2D9974276}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HexaSamples.WebApi", "HexaSamples.WebApi\HexaSamples.WebApi.csproj", "{9C2E77A0-80C4-4C6E-B704-40752FF35140}"
 EndProject

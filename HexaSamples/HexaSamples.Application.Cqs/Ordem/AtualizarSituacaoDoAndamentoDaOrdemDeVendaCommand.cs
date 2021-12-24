@@ -1,4 +1,4 @@
-using HexaSamples.Application.Cqs.Commons;
+using HexaSamples.Application.Cqs.SeedWork;
 using HexaSamples.Domain.OrdemAggregate;
 
 namespace HexaSamples.Application.Cqs.Ordem;

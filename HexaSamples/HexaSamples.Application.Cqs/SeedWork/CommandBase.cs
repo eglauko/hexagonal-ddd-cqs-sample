@@ -1,7 +1,7 @@
 using HexaSamples.SeedWork.Results;
 using MediatR;
 
-namespace HexaSamples.Application.Cqs.Commons;
+namespace HexaSamples.Application.Cqs.SeedWork;
 
 public abstract class CommandBase : IRequest<IResult>
 {
