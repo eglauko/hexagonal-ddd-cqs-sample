@@ -3,49 +3,82 @@
 namespace HexaSamples.SeedWork.Persistence.Abstractions;
 
 /// <summary>
-/// Interface de um serviço de dados.
+/// <para>
+///     Interface para assinar um serviço de dados.
+/// </para>
 /// </summary>
 public interface IDataService { }
 
 /// <summary>
-/// Interface de um serviço de dados para um tipo especificado.
+/// <para>
+///     Interface para assinar um serviço de dados para um tipo especificado.
+/// </para>
 /// </summary>
 /// <typeparam name="TEntity">Tipo de dado.</typeparam>
 public interface IDataService<TEntity> : IDataService { }
 
 /// <summary>
-/// Serviço de dados para adicionar e persistir novas entidades.
+/// <para>
+///     Serviço de dados para adicionar e persistir novas entidades.
+/// </para>
 /// </summary>
+/// <remarks>
+/// <para>
+///     Quando implementado junto com o padrão Unit Of Work a entidade não será persistida diretamente ao usar
+///     os métodos deste serviço.
+/// </para>
+/// </remarks>
 /// <typeparam name="TEntity">Tipo da entidade.</typeparam>
 public interface IAdder<TEntity> : IDataService<TEntity>
 {
     /// <summary>
-    /// Adiciona uma entidade ao repositório para ser persistida.
+    /// <para>
+    ///     Adiciona uma entidade ao repositório para ser persistida.
+    /// </para>
     /// </summary>
+    /// <remarks>
+    /// <para>
+    ///     Quando implementado junto com o padrão Unit Of Work a entidade não será persistida diretamente neste método,
+    ///     ela será armazenada em memória até a finalização da unidade de trabalho.
+    /// </para>
+    /// </remarks>
     /// <param name="entity">Instância do modelo de dados.</param>
-    /// <returns>Resultado da operação.</returns>
     void Add(TEntity entity);
 }
 
 /// <summary>
-/// Serviço de dados para buscar uma instância de uma entidade existente.
+/// <para>
+///     Serviço de dados para buscar uma instância de uma entidade existente.
+/// </para>
 /// </summary>
 /// <typeparam name="TEntity">Tipo da entidade.</typeparam>
 public interface IFinder<TEntity> : IDataService<TEntity>
 {
     /// <summary>
-    /// Procura por uma entidade existente através da chave (Id) dela.
+    /// <para>
+    ///     Procura por uma entidade existente através da chave (Id) dela.
+    /// </para>
     /// </summary>
     /// <param name="id">Chave, Id, da entidade.</param>
-    /// <returns>Instância existente, ou nulo/default caso não exista.</returns>
+    /// <returns>
+    /// <para>
+    ///     Instância existente, ou nulo/default caso não exista.
+    /// </para>
+    /// </returns>
     TEntity? Find(object id);
 
     /// <summary>
-    /// Procura, de forma assíncrona, por uma entidade existente através da chave (Id) dela.
+    /// <para>
+    ///     Procura, de forma assíncrona, por uma entidade existente através da chave (Id) dela.
+    /// </para>
     /// </summary>
     /// <param name="id">Chave, Id, da entidade.</param>
     /// <param name="token">Token para cancelamento das tasks.</param>
-    /// <returns>Instância existente, ou nulo/default caso não exista.</returns>
+    /// <returns>
+    /// <para>
+    ///     Instância existente, ou nulo/default caso não exista.
+    /// </para>
+    /// </returns>
     ValueTask<TEntity?> FindAsync(object id, CancellationToken token = default);
 }
 
@@ -59,61 +92,109 @@ public interface IFinder<TEntity> : IDataService<TEntity>
 /// </para>
 /// </summary>
 /// <typeparam name="TEntity">Tipo da entidade.</typeparam>
-/// <typeparam name="TFilter">Tipo do filtro.</typeparam>
-public interface IFinder<TEntity, TFilter> : IDataService<TEntity>
+/// <typeparam name="TIdentifierFilter">Tipo do filtro identificador.</typeparam>
+public interface IFinder<TEntity, in TIdentifierFilter> : IDataService<TEntity>
 {
     /// <summary>
-    /// Procura por uma entidade existente através de um filtro, o qual deve ser como uma chave única.
+    /// <para>
+    ///     Procura por uma entidade existente através de um filtro identificador, o qual deve ser como uma chave única.
+    /// </para>
     /// </summary>
     /// <param name="filter">Filtro que identifique a entidade.</param>
-    /// <returns>Instância existente, ou nulo/default caso não exista.</returns>
-    TEntity? Find(TFilter filter);
+    /// <returns>
+    /// <para>
+    ///     Instância existente, ou nulo/default caso não exista.
+    /// </para>
+    /// </returns>
+    TEntity? Find(TIdentifierFilter filter);
 
     /// <summary>
-    /// Procura por uma entidade existente através de um filtro, o qual deve ser como uma chave única.
+    /// <para>
+    ///     Procura por uma entidade existente através de um filtro identificador, o qual deve ser como uma chave única.
+    /// </para>
     /// </summary>
     /// <param name="filter">Filtro que identifique a entidade.</param>
     /// <param name="token">Token para cancelamento das tasks.</param>
-    /// <returns>Instância existente, ou nulo/default caso não exista.</returns>
-    Task<TEntity?> FindAsync(TFilter filter, CancellationToken token = default);
+    /// <returns>
+    /// <para>
+    ///     Instância existente, ou nulo/default caso não exista.
+    /// </para>
+    /// </returns>
+    Task<TEntity?> FindAsync(TIdentifierFilter filter, CancellationToken token = default);
 }
 
 /// <summary>
-/// Serviço de dados para buscar uma instância de uma entidade existente através do GUID.
+/// <para>
+///     Serviço de dados para buscar uma instância de uma entidade existente através do GUID.
+/// </para>
 /// </summary>
+/// <remarks>
+/// <para>
+///     Este serviço serve a entidades cuja o ID não seja do tipo GUID e a entidade possui uma propriedade
+///     adicional para o GUID, definida pela interface <see cref="IHasGuid"/>. 
+/// </para>
+/// </remarks>
 /// <typeparam name="TEntity">Tipo de dado.</typeparam>
 public interface IFinderByGuid<TEntity> : IDataService<TEntity>
     where TEntity : IHasGuid
 {
     /// <summary>
-    /// Procura por uma entidade existente através do Guid dela.
+    /// <para>
+    ///     Procura por uma entidade existente através do Guid dela.
+    /// </para>
     /// </summary>
     /// <param name="guid">Chave universal da entidade.</param>
-    /// <returns>Instância existente, ou nulo/default caso não exista.</returns>
+    /// <returns>
+    /// <para>
+    ///     Instância existente, ou nulo/default caso não exista.
+    /// </para>
+    /// </returns>
     TEntity? FindByGuid(Guid guid);
 
     /// <summary>
-    /// Procura, de forma assíncrona, por uma entidade existente através do Guid dela.
+    /// <para>
+    ///     Procura, de forma assíncrona, por uma entidade existente através do Guid dela.
+    /// </para>
     /// </summary>
     /// <param name="guid">Chave universal da entidade.</param>
     /// <param name="token">Token para cancelamento das tasks.</param>
-    /// <returns>Instância existente, ou nulo/default caso não exista.</returns>
+    /// <returns>
+    /// <para>
+    ///     Instância existente, ou nulo/default caso não exista.
+    /// </para>
+    /// </returns>
     Task<TEntity?> FindByGuidAsync(Guid guid, CancellationToken token = default);
 }
 
 /// <summary>
-/// Serviço de dados para buscar uma instância de uma entidade existente através do Código.
+/// <para>
+///     Serviço de dados para buscar uma instância de uma entidade existente através do Código.
+/// </para>
 /// </summary>
+/// <remarks>
+/// <para>
+///     O código não é o ID da entidade, mas um identificador único, normalmente mais amigável aos humanos.
+/// </para>
+/// <para>
+///     A propriedade de código é definida pela interface <see cref="IHasCodigo{TCode}"/>.
+/// </para>
+/// </remarks>
 /// <typeparam name="TEntity">Tipo de dado.</typeparam>
 /// <typeparam name="TCode">Tipo do código.</typeparam>
 public interface IFinderByCode<TEntity, TCode> : IDataService<TEntity>
     where TEntity : IHasCodigo<TCode>
 {
     /// <summary>
-    /// Procura por uma entidade existente atravéz do Código dela.
+    /// <para>
+    ///     Procura por uma entidade existente atravéz do Código dela.
+    /// </para>
     /// </summary>
     /// <param name="code">Código da entidade.</param>
-    /// <returns>Instância existente, ou nulo/default caso não exista.</returns>
+    /// <returns>
+    /// <para>
+    ///     Instância existente, ou nulo/default caso não exista.
+    /// </para>
+    /// </returns>
     TEntity? FindByCode(TCode code);
 
     /// <summary>
@@ -121,18 +202,26 @@ public interface IFinderByCode<TEntity, TCode> : IDataService<TEntity>
     /// </summary>
     /// <param name="code">Código da entidade.</param>
     /// <param name="token">Token para cancelamento das tasks.</param>
-    /// <returns>Instância existente, ou nulo/default caso não exista.</returns>
+    /// <returns>
+    /// <para>
+    ///     Instância existente, ou nulo/default caso não exista.
+    /// </para>
+    /// </returns>
     Task<TEntity?> FindByCodeAsync(TCode code, CancellationToken token = default);
 }
 
 /// <summary>
-/// Serviço de dados para mesclar dados a uma entidade existente.
+/// <para>
+///     Serviço de dados para mesclar dados a uma entidade existente.
+/// </para>
 /// </summary>
 /// <typeparam name="TEntity">Tipo da entidade.</typeparam>
 public interface IUpdater<TEntity> : IDataService<TEntity>
 {
     /// <summary>
-    /// Operação para mesclar um modelo de dados a entidade existente.
+    /// <para>
+    ///     Operação para mesclar um modelo de dados a entidade existente.
+    /// </para>
     /// </summary>
     /// <remarks>
     /// <para>
@@ -144,7 +233,11 @@ public interface IUpdater<TEntity> : IDataService<TEntity>
     /// </remarks>
     /// <param name="model">Um modelo de dados com informações para atualizar uma entidade existente.</param>
     /// <typeparam name="TId">Tipo do id.</typeparam>
-    /// <returns>O Resultado da operação.</returns>
+    /// <returns>
+    /// <para>
+    ///     Verdadeiro caso a entidade exista e foi atualizada, falso caso contrário.
+    /// </para>
+    /// </returns>
     bool Merge<TId>(IHasId<TId> model);
 
     /// <summary>
@@ -161,60 +254,101 @@ public interface IUpdater<TEntity> : IDataService<TEntity>
     /// <param name="model">Um modelo de dados com informações para atualizar uma entidade existente.</param>
     /// <param name="token">Token para cancelamento das tasks.</param>
     /// <typeparam name="TId">Tipo do id.</typeparam>
-    /// <returns>O Resultado da operação.</returns>
+    /// <returns>
+    /// <para>
+    ///     Verdadeiro caso a entidade exista e foi atualizada, falso caso contrário.
+    /// </para>
+    /// </returns>
     Task<bool> MergeAsync<TId>(IHasId<TId> model, CancellationToken token = default);
 }
 
 /// <summary>
-/// Serviço de dados para excluir entidades.
+/// <para>
+///     Serviço de dados para excluir entidades.
+/// </para>
 /// </summary>
 /// <typeparam name="TEntity">Tipo da entidade.</typeparam>
 public interface IRemover<TEntity> : IDataService<TEntity>
 {
     /// <summary>
-    /// Exclui uma entidade do banco de dados.
+    /// <para>
+    ///     Exclui uma entidade do banco de dados.
+    /// </para>
     /// </summary>
-    /// <param name="entity">Entidade.</param>
+    /// <remarks>
+    /// <para>
+    ///     Entende-se que a entidade foi previamente obtida do banco de dados e ela existe.
+    /// </para>
+    /// </remarks>
+    /// <param name="entity">A entidade.</param>
     void Remove(TEntity entity);
 
     /// <summary>
-    /// Exclui uma entidade pela a chave dela.
+    /// <para>
+    ///     Exclui uma entidade pela a chave dela.
+    /// </para>
     /// </summary>
     /// <param name="id">Chaves (Id) da entidade a ser excluída.</param>
-    /// <returns>A entidade excluída, ou nulo se a entidade não for encontrada.</returns>
+    /// <returns>
+    /// <para>
+    ///     A entidade excluída, ou nulo se a entidade não for encontrada.
+    /// </para>
+    /// </returns>
     TEntity? Delete(object id);
 
     /// <summary>
-    /// Exclui, de forma assíncrona, uma entidade pela a chave dela.
+    /// <para>
+    ///     Exclui, de forma assíncrona, uma entidade pela a chave dela.
+    /// </para>
     /// </summary>
     /// <param name="id">Chaves (Id) da entidade a ser excluída.</param>
     /// <param name="token">Token para cancelamento das tasks.</param>
-    /// <returns>A entidade excluída, ou nulo se a entidade não for encontrada.</returns>
+    /// <returns>
+    /// <para>
+    ///     A entidade excluída, ou nulo se a entidade não for encontrada.
+    /// </para>
+    /// </returns>
     Task<TEntity?> DeleteAsync(object id, CancellationToken token = default);
 }
 
 /// <summary>
-/// Interface complementar para repositórios que podem gerar o Id da entidade.
+/// <para>
+///     Interface complementar para repositórios que podem gerar o Id da entidade.
+/// </para>
 /// </summary>
 /// <typeparam name="TId">Tipo do Id.</typeparam>
 public interface IGenerateId<TId> : IDataService
 {
     /// <summary>
-    /// Gera o próximo Id para entidade.
+    /// <para>
+    ///     Gera o próximo Id para entidade.
+    /// </para>
     /// </summary>
-    /// <returns>Novo Id.</returns>
+    /// <returns>
+    /// <para>
+    ///     O novo Id.
+    /// </para>
+    /// </returns>
     TId NextId();
 }
 
 /// <summary>
-/// Interface complementar para repositório que podem gerar um código para entidade.
+/// <para>
+///     Interface complementar para repositório que podem gerar um código para entidade.
+/// </para>
 /// </summary>
 /// <typeparam name="TCode">Tipo de dado do código.</typeparam>
 public interface IGenerateCode<TCode> : IDataService
 {
     /// <summary>
-    /// Gera um novo código para entidade.
+    /// <para>
+    ///     Gera um novo código para entidade.
+    /// </para>
     /// </summary>
-    /// <returns>Novo código.</returns>
+    /// <returns>
+    /// <para>
+    ///     O novo código.
+    /// </para>
+    /// </returns>
     TCode NextCode();
 }
