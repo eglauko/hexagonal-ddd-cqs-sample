@@ -1,7 +1,7 @@
 using HexaSamples.Application.Cqs.Ordem;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using IResult = HexaSamples.Commons.Results.IResult;
+using IResult = HexaSamples.SeedWork.Results.IResult;
 
 namespace HexaSamples.WebApi.Controllers;
 

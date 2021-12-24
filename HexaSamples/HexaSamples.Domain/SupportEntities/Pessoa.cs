@@ -1,4 +1,4 @@
-using HexaSamples.Commons.Entities;
+using HexaSamples.SeedWork.Entities;
 
 namespace HexaSamples.Domain.SupportEntities;
 

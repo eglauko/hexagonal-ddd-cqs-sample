@@ -8,7 +8,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\HexaSamples.SeedWork.Entities\HexaSamples.SeedWork.Entities.csproj" />
-    <ProjectReference Include="..\HexaSamples.SeedWork.Results\HexaSamples.SeedWork.Results.csproj" />
   </ItemGroup>
 
 </Project>

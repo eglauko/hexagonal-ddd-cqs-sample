@@ -1,4 +1,4 @@
-using HexaSamples.Commons.Entities;
+using HexaSamples.SeedWork.Entities;
 using HexaSamples.Domain.SupportEntities;
 
 namespace HexaSamples.Domain.OrdemAggregate;

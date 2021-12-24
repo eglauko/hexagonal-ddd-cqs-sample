@@ -1,4 +1,4 @@
-using HexaSamples.Commons.Results;
+using HexaSamples.SeedWork.Results;
 using MediatR;
 
 namespace HexaSamples.Application.Cqs.Commons;

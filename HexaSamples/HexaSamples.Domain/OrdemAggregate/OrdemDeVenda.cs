@@ -1,5 +1,5 @@
-﻿using HexaSamples.Commons.Entities;
-using HexaSamples.Commons.Results;
+﻿using HexaSamples.SeedWork.Entities;
+using HexaSamples.SeedWork.Results;
 using HexaSamples.Domain.SupportEntities;
 
 #pragma warning disable CS8618

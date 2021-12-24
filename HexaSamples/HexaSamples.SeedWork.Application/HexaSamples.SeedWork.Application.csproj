@@ -7,13 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Class1.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\HexaSamples.Application.Cqs\HexaSamples.Application.Cqs.csproj" />
-    <ProjectReference Include="..\HexaSamples.SeedWork.Application\HexaSamples.SeedWork.Application.csproj" />
     <ProjectReference Include="..\HexaSamples.SeedWork.Persistence.Abstractions\HexaSamples.SeedWork.Persistence.Abstractions.csproj" />
+    <ProjectReference Include="..\HexaSamples.SeedWork.Results\HexaSamples.SeedWork.Results.csproj" />
   </ItemGroup>
 
 </Project>

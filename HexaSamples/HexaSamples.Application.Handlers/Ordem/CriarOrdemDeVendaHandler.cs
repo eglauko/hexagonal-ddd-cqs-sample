@@ -1,7 +1,7 @@
 using HexaSamples.Application.Cqs.Ordem;
-using HexaSamples.Commons.Application.Persistence;
-using HexaSamples.Commons.Persistence.Abstractions;
-using HexaSamples.Commons.Results;
+using HexaSamples.SeedWork.Application.Persistence;
+using HexaSamples.SeedWork.Persistence.Abstractions;
+using HexaSamples.SeedWork.Results;
 using HexaSamples.Domain.OrdemAggregate;
 using HexaSamples.Domain.SupportEntities;
 using MediatR;
