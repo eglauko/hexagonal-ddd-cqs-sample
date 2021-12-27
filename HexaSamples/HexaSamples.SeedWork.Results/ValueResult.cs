@@ -2,15 +2,17 @@
 namespace HexaSamples.SeedWork.Results;
 
 /// <summary>
-/// Implementação do resultado de operações que retorna um valor do tipo <typeparamref name="TValue"/>.
+/// <para>
+///     Implementação do resultado de operações que retorna um valor do tipo <typeparamref name="TValue"/>.
+/// </para>
 /// </summary>
 /// <typeparam name="TValue">Tipo de dado do valor retornado no resultado da operação.</typeparam>
 public class ValueResult<TValue> : BaseResult, IResult<TValue>
 {
     /// <summary>
-    /// Modelo de dados do resultado
+    /// Objeto do resultado
     /// </summary>
-    public TValue? Value { get; private set; } = default;
+    public TValue? Value { get; private init; }
 
     /// <summary>
     /// Construtor privado para métodos static.

@@ -5,6 +5,16 @@ using HexaSamples.SeedWork.Application.Persistence;
 
 namespace HexaSamples.SeedWork.Persistence.EntityFrameworkCore;
 
+/// <summary>
+/// <para>
+///     Implementação da unidade de trabalho utilizando EntityFrameworkCore.
+/// </para> 
+/// </summary>
+/// <typeparam name="TDbContext">
+/// <para>
+///     Tipo do <see cref="DbContext"/> que contém as entidades mapeadas referentes ao contexto da unidade de trabalho.
+/// </para>
+/// </typeparam>
 public class UnitOfWorkContext<TDbContext> : IUnitOfWorkContext, ITransaction
     where TDbContext : DbContext
 {
@@ -24,31 +34,7 @@ public class UnitOfWorkContext<TDbContext> : IUnitOfWorkContext, ITransaction
     /// </summary>
     public TDbContext Db { get; }
 
-    /// <summary>
-    /// Inicia uma transação e retorna um componente para manipulá-la.
-    /// </summary>
-    /// <remarks>
-    /// <para>
-    ///     Este comando não é, normalmente, necessário para a unidade de trabalho.
-    /// </para>
-    /// <para>
-    ///     O Design Pattern Unit of Work é responsável por coletar as alterações nas entidades
-    ///     durante o unidade de trabalho, iniciar uma transação e enviar os comandos ao banco de dados e finalizar
-    ///     a transação.
-    /// </para>
-    /// <para>
-    ///     Há casos que uma única transação não resolve a unidade de trabalho e é necessário realizar a
-    ///     operação em partes. É justificável o uso manual de transações quando é necessário enviar os dados 
-    ///     ao banco várias vezes, durante uma mesma transação.
-    /// </para>
-    /// <para>
-    ///     Outras operações, como lock de registras (não recomendado), podem ser feitas através de transações.
-    /// </para>
-    /// </remarks>
-    /// <returns>Objeto para manipular a transação.</returns>
-    /// <exception cref="NotSupportedException">
-    /// Caso a tecnologia de persistência não superte transactions.
-    /// </exception>
+    /// <inheritdoc/>
     public ITransaction BeginTransaction()
     {
         if (_dbContextTransaction is null)
@@ -56,32 +42,7 @@ public class UnitOfWorkContext<TDbContext> : IUnitOfWorkContext, ITransaction
         return this;
     }
 
-    /// <summary>
-    /// Inicia uma transação, de forma assíncrona, e retorna um componente para manipulá-la.
-    /// </summary>
-    /// <remarks>
-    /// <para>
-    ///     Este comando não é, normalmente, necessário para a unidade de trabalho.
-    /// </para>
-    /// <para>
-    ///     O Design Pattern Unit of Work é responsável por coletar as alterações nas entidades
-    ///     durante o unidade de trabalho, iniciar uma transação e enviar os comandos ao banco de dados e finalizar
-    ///     a transação.
-    /// </para>
-    /// <para>
-    ///     Há casos que uma única transação não resolve a unidade de trabalho e é necessário realizar a
-    ///     operação em partes. É justificável o uso manual de transações quando é necessário enviar os dados 
-    ///     ao banco várias vezes, durante uma mesma transação.
-    /// </para>
-    /// <para>
-    ///     Outras operações, como lock de registras (não recomendado), podem ser feitas através de transações.
-    /// </para>
-    /// </remarks>
-    /// <param name="token">Token para cancelamento das tasks.</param>
-    /// <returns>Objeto para manipular a transação.</returns>
-    /// <exception cref="NotSupportedException">
-    /// Caso a tecnologia de persistência não superte transactions.
-    /// </exception>
+    /// <inheritdoc/>
     public async Task<ITransaction> BeginTransactionAsync(CancellationToken token = default)
     {
         if (_dbContextTransaction is null)
@@ -89,17 +50,7 @@ public class UnitOfWorkContext<TDbContext> : IUnitOfWorkContext, ITransaction
         return this;
     }
 
-    /// <summary>
-    /// Limpa o contexto, removendo as entidades do tracking.
-    /// </summary>
-    /// <param name="force">
-    /// <para>
-    ///     Se deverão ser removidas todas entidades, ou apenas as não modificadas.
-    /// </para>
-    /// <para>
-    ///     Verdadeiro remove todas entidades, falso somente as não modificadas.
-    /// </para>
-    /// </param>
+    /// <inheritdoc/>
     public void CleanUp(bool force = true)
     {
         var entries = Db.ChangeTracker.Entries().Where(e => e.Entity != null);
@@ -109,9 +60,7 @@ public class UnitOfWorkContext<TDbContext> : IUnitOfWorkContext, ITransaction
             entry.State = EntityState.Detached;
     }
 
-    /// <summary>
-    /// Commits all changes made to the database in the current transaction.
-    /// </summary>
+    /// <inheritdoc/>
     public void Commit()
     {
         if (_dbContextTransaction is null)
@@ -122,9 +71,7 @@ public class UnitOfWorkContext<TDbContext> : IUnitOfWorkContext, ITransaction
         _dbContextTransaction = null;
     }
 
-    /// <summary>
-    /// Discards all changes made to the database in the current transaction.
-    /// </summary>
+    /// <inheritdoc/>
     public void Rollback()
     {
         if (_dbContextTransaction is null)
@@ -135,10 +82,7 @@ public class UnitOfWorkContext<TDbContext> : IUnitOfWorkContext, ITransaction
         _dbContextTransaction = null;
     }
 
-    /// <summary>
-    /// Salva as alterações nas entidades realizadas pelos serviços.
-    /// </summary>
-    /// <returns>Resultado das alterações</returns>
+    /// <inheritdoc/>
     public ISaveResult Save()
     {
         try
@@ -160,11 +104,7 @@ public class UnitOfWorkContext<TDbContext> : IUnitOfWorkContext, ITransaction
         }
     }
 
-    /// <summary>
-    /// Salva, de forma assíncrona, as alterações nas entidades realizadas pelos serviços.
-    /// </summary>
-    /// <param name="token">Token para cancelamento das tasks.</param>
-    /// <returns>Resultado das alterações.</returns>
+    /// <inheritdoc/>
     public async Task<ISaveResult> SaveAsync(CancellationToken token = default)
     {
         try

@@ -2,9 +2,10 @@
 namespace HexaSamples.SeedWork.Results;
 
 /// <summary>
-/// Implementação padrão de IResultadoOperacao.
+/// <para>
+///     Implementação padrão de <see cref="IResult"/>.
+/// </para>
 /// </summary>
-/// <see cref="IResult"/>
 public class BaseResult : IResult
 {
     /// <summary>
@@ -25,7 +26,7 @@ public class BaseResult : IResult
     /// <summary>
     /// Mensagens do resultado.
     /// </summary>
-    public IEnumerable<IMessage> Messages { get { return _messages.AsReadOnly(); } }
+    public IEnumerable<IMessage> Messages => _messages.AsReadOnly();
 
     /// <summary>
     /// Determina se o resultado da operação foi sucesso ou falha.
@@ -69,10 +70,10 @@ public class BaseResult : IResult
     }
 
     /// <summary>
-    /// Interno, para <see cref="TypeResult{TModel}"/>.
+    /// Interno, para <see cref="ValueResult{TValue}"/>.
     /// </summary>
-    /// <param name="other"></param>
-    /// <param name="success"></param>
+    /// <param name="other">Outro resultado.</param>
+    /// <param name="success">Valor da propriedade <see cref="Success"/>.</param>
     internal protected BaseResult(IResult other, bool success)
     {
         Success = success;
@@ -80,7 +81,7 @@ public class BaseResult : IResult
     }
 
     /// <summary>
-    /// Cria um novo Resultado Operação de Sucesso.
+    /// Cria um novo Resultado de Sucesso.
     /// </summary>
     /// <returns>Nova instância.</returns>
     public static BaseResult CreateSuccess()
@@ -89,7 +90,7 @@ public class BaseResult : IResult
     }
 
     /// <summary>
-    /// Cria um novo Resultado Operação de Falha.
+    /// Cria um novo Resultado de Falha.
     /// </summary>
     /// <param name="error">Texto da mensagem de erro.</param>
     /// <returns>Nova instância.</returns>
@@ -99,7 +100,7 @@ public class BaseResult : IResult
     }
 
     /// <summary>
-    /// Cria um novo Resultado Operação de Falha.
+    /// Cria um novo Resultado de Falha.
     /// </summary>
     /// <param name="ex"><see cref="Exception"/> de erro.</param>
     /// <returns>Nova instância.</returns>
@@ -109,10 +110,11 @@ public class BaseResult : IResult
     }
 
     /// <summary>
-    /// Cria um novo Resultado Operação de Falha.
+    /// Cria um novo Resultado de Falha.
     /// </summary>
     /// <param name="error">Texto da mensagem de erro.</param>
     /// <param name="property">Propriedade da mensagem de erro.</param>
+    /// <param name="code"></param>
     /// <returns>Nova instância.</returns>
     public static BaseResult CreateFailure(string error, string property, string? code = null)
     {
@@ -252,7 +254,7 @@ public class BaseResult : IResult
         ///     Usável através do <see cref="BaseResult.ImmutableSuccess"/>.
         /// </para>
         /// </summary>
-        public class ImmutableSuccess : ImmutableResult
+        public sealed class ImmutableSuccess : ImmutableResult
         {
             /// <summary>
             /// Sempre true.
@@ -268,7 +270,7 @@ public class BaseResult : IResult
         ///     Usável através do <see cref="BaseResult.ImmutableFailure"/>.
         /// </para>
         /// </summary>
-        public class ImmutableFailure : ImmutableResult
+        public sealed class ImmutableFailure : ImmutableResult
         {
             /// <summary>
             /// Sempre true.

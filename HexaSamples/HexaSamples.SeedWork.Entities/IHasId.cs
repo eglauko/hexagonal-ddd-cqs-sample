@@ -2,7 +2,10 @@
 namespace HexaSamples.SeedWork.Entities;
 
 /// <summary>
-/// Interface para modelos de dados com Id.
+/// <para>
+///     Interface para modelos de dados com Id, geralmente entidades, ou objetos ao estilo DTO, os quais referenciam
+///     o Id de uma entidade.
+/// </para>
 /// </summary>
 public interface IHasId<TId>
 {

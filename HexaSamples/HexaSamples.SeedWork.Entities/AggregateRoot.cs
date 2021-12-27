@@ -3,7 +3,9 @@
 namespace HexaSamples.SeedWork.Entities;
 
 /// <summary>
-/// Implementação base, abstrata, para <see cref="IAggregateRoot{TId}"/>.
+/// <para>
+///     Implementação base, abstrata, para <see cref="IAggregateRoot{TId}"/>.
+/// </para>
 /// </summary>
 /// <typeparam name="TId">Tipo do ID da entidade.</typeparam>
 public abstract class AggregateRoot<TId> : Entity<TId>, IAggregateRoot<TId>

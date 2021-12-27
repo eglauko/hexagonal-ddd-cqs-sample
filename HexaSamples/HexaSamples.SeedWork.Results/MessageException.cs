@@ -4,7 +4,9 @@ using System.Text.Json.Serialization;
 namespace HexaSamples.SeedWork.Results;
 
 /// <summary>
-/// Modelo que contém informações de uma exception, utilizado nas mensagens dos <see cref="IResult"/>.
+/// <para>
+///     Modelo que contém informações de uma exception, utilizado nas mensagens dos <see cref="IResult"/>.
+/// </para>
 /// </summary>
 public record MessageException
 {

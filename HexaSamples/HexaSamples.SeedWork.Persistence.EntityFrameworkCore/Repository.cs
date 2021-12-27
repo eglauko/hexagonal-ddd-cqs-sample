@@ -5,12 +5,30 @@ using Microsoft.EntityFrameworkCore;
 
 namespace HexaSamples.SeedWork.Persistence.EntityFrameworkCore;
 
+/// <summary>
+/// <para>
+///     Implementação de um repositório utilizando EntityFrameworkCore.
+/// </para>
+/// </summary>
+/// <typeparam name="TDbContext">Tipo do <see cref="DbContext"/> que contém a entidade mapeada.</typeparam>
+/// <typeparam name="TEntity">Tipo da entidade.</typeparam>
 public class Repository<TDbContext, TEntity> : IRepository<TEntity>
     where TDbContext : DbContext
     where TEntity : class
 {
     private readonly TDbContext _db;
 
+    /// <summary>
+    /// <para>
+    ///     Cria nova instância do repositório.
+    /// </para>
+    /// </summary>
+    /// <param name="dbContext">O DbContext.</param>
+    /// <exception cref="ArgumentNullException">
+    /// <para>
+    ///     Caso o contexto seja nulo.
+    /// </para>
+    /// </exception>
     public Repository(TDbContext dbContext)
     {
         _db = dbContext ?? throw new ArgumentNullException(nameof(dbContext));

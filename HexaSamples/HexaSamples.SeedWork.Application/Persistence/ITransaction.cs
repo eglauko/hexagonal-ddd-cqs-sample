@@ -1,17 +1,27 @@
 ﻿namespace HexaSamples.SeedWork.Application.Persistence;
 
 /// <summary>
-/// Uma transação com o banco de dados.
+/// <para>
+///     Representa uma transação com o banco de dados.
+/// </para>
+/// <para>
+///     Normalmente a unidade de trabalho irá gerenciar uma transação para finalização, porém é possível
+///     gerenciar a transação a nível de serviços de aplicação. 
+/// </para>
 /// </summary>
 public interface ITransaction
 {
     /// <summary>
-    /// Commits all changes made to the database in the current transaction.
+    /// <para>
+    ///     Commits all changes made to the database in the current transaction.
+    /// </para>
     /// </summary>
     void Commit();
 
     /// <summary>
-    /// Discards all changes made to the database in the current transaction.
+    /// <para>
+    ///     Discards all changes made to the database in the current transaction.
+    /// </para>
     /// </summary>
     void Rollback();
 }

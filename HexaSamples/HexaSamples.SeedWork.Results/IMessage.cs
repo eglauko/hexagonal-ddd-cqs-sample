@@ -2,7 +2,9 @@
 namespace HexaSamples.SeedWork.Results;
 
 /// <summary>
-/// Interface da mensagem dos resultados de operações de um serviço.
+/// <para>
+///     Interface da mensagem dos resultados de operações de um serviço.
+/// </para>
 /// </summary>
 public interface IMessage
 {

@@ -7,8 +7,8 @@ namespace HexaSamples.SeedWork.Entities.Events;
 /// </para>
 /// <para>
 ///     Os eventos serão armazenados em um <see cref="IDomainEventCollection"/>, 
-///     o qual irá disponibilizar os eventos para a unidade de trabalho dispará-los durante a finalização 
-///     (salvamento das alterações).
+///     o qual irá disponibilizar os eventos para a unidade de trabalho, ou componentes de despacho de eventos,
+///     dispará-los durante a finalização (salvamento das alterações).
 /// </para>
 /// </summary>
 public interface IHasEvents

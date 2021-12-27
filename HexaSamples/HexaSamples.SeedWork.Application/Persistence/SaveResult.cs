@@ -4,7 +4,9 @@ using HexaSamples.SeedWork.Results;
 namespace HexaSamples.SeedWork.Application.Persistence;
 
 /// <summary>
-/// Implementação de <see cref="ISaveResult"/>.
+/// <para>
+///     Implementação de <see cref="ISaveResult"/>.
+/// </para>
 /// </summary>
 public class SaveResult : BaseResult, ISaveResult
 {

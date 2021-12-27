@@ -2,7 +2,9 @@
 namespace HexaSamples.SeedWork.Entities;
 
 /// <summary>
-/// Entidade base.
+/// <para>
+///     Implementação base para entidades.
+/// </para>
 /// </summary>
 /// <typeparam name="TId">Tipo do ID da entidade.</typeparam>
 public abstract class Entity<TId> : IEntity<TId>
@@ -14,7 +16,9 @@ public abstract class Entity<TId> : IEntity<TId>
 }
 
 /// <summary>
-/// Entidade base.
+/// <para>
+///     Implementação base para entidades com código.
+/// </para>
 /// </summary>
 /// <typeparam name="TId">Tipo do ID da entidade.</typeparam>
 /// <typeparam name="TCode">Tipo do Código da entidade</typeparam>

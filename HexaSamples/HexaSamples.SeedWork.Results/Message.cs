@@ -2,99 +2,148 @@
 namespace HexaSamples.SeedWork.Results;
 
 /// <summary>
-/// Componente de mensagem para os resultados de operações de um serviço.
+/// <para>
+///     Componente de mensagem para os resultados de operações de um serviço.
+/// </para>
 /// </summary>
 public class Message : IMessage
 {
     /// <summary>
-    /// Cria uma nova mensagem de sucesso.
+    /// <para>
+    ///     Cria uma nova mensagem de sucesso.
+    /// </para>
     /// </summary>
     /// <param name="text">Texto da mensagem.</param>
     /// <param name="property">Propriedade relacionada a mensagem, opcional.</param>
     /// <param name="code">Codigo da mensagem, opcional.</param>
-    /// <returns>Nova instância da mensagem.</returns>
+    /// <returns>
+    /// <para>
+    ///     Nova instância da mensagem.
+    /// </para>
+    /// </returns>
     public static Message Success(string text, string? property = null, string? code = null)
     {
         return new Message(MessageType.Success, text, property, code, null);
     }
 
     /// <summary>
-    /// Cria uma nova mensagem de informação.
+    /// <para>
+    ///     Cria uma nova mensagem de informação.
+    /// </para>
     /// </summary>
     /// <param name="text">Texto da mensagem.</param>
     /// <param name="property">Propriedade relacionada a mensagem, opcional.</param>
     /// <param name="code">Codigo da mensagem, opcional.</param>
-    /// <returns>Nova instância da mensagem.</returns>
+    /// <returns>
+    /// <para>
+    ///     Nova instância da mensagem.
+    /// </para></returns>
     public static Message Info(string text, string? property = null, string? code = null)
     {
         return new Message(MessageType.Info, text, property, code, null);
     }
 
     /// <summary>
-    /// Cria uma nova mensagem de alerta.
+    /// <para>
+    ///     Cria uma nova mensagem de alerta.
+    /// </para>
     /// </summary>
     /// <param name="text">Texto da mensagem.</param>
     /// <param name="property">Propriedade relacionada a mensagem, opcional.</param>
     /// <param name="code">Codigo da mensagem, opcional.</param>
     /// <param name="ex">Exception que ocorreu, opcional.</param>
-    /// <returns>Nova instância da mensagem.</returns>
+    /// <returns>
+    /// <para>
+    ///     Nova instância da mensagem.
+    /// </para>
+    /// </returns>
     public static Message Warning(string text, string? property = null, string? code = null, Exception? ex = null)
     {
         return new Message(MessageType.Warning, text, property, code, ex);
     }
 
     /// <summary>
-    /// Cria uma nova mensagem de erro.
+    /// <para>
+    ///     Cria uma nova mensagem de erro.
+    /// </para>
     /// </summary>
     /// <param name="text">Texto da mensagem.</param>
     /// <param name="property">Propriedade relacionada a mensagem, opcional.</param>
     /// <param name="code">Codigo da mensagem, opcional.</param>
     /// <param name="ex">Exception que ocorreu, opcional.</param>
-    /// <returns>Nova instância da mensagem.</returns>
+    /// <returns>
+    /// <para>
+    ///     Nova instância da mensagem.
+    /// </para>
+    /// </returns>
     public static Message Error(string text, string? property = null, string? code = null, Exception? ex = null)
     {
         return new Message(MessageType.Error, text, property, code, ex);
     }
 
     /// <summary>
-    /// Cria uma mensagem com código de erro de <see cref="ResultErrorCodes.NotFound"/>.
+    /// <para>
+    ///     Cria uma mensagem com código de erro de <see cref="ResultErrorCodes.NotFound"/>.
+    /// </para>
     /// </summary>
     /// <param name="text">Texto da mensagem.</param>
-    /// <returns>Nova instância da mensagem.</returns>
+    /// <returns>
+    /// <para>
+    ///     Nova instância da mensagem.
+    /// </para>
+    /// </returns>
     public static Message NotFound(string text)
     {
         return new Message(MessageType.Error, text, null, ResultErrorCodes.NotFound, null);
     }
 
     /// <summary>
-    /// Cria uma mensagem com código de erro de <see cref="ResultErrorCodes.InvalidParameters"/>.
+    /// <para>
+    ///     Cria uma mensagem com código de erro de <see cref="ResultErrorCodes.InvalidParameters"/>.
+    /// </para>
     /// </summary>
     /// <param name="text">Texto da mensagem.</param>
     /// <param name="property">Propriedade relacionada a mensagem, nome do parâmetro inválido.</param>
-    /// <returns>Nova instância da mensagem.</returns>
+    /// <returns>
+    /// <para>
+    ///     Nova instância da mensagem.
+    /// </para>
+    /// </returns>
     public static Message InvalidParameters(string text, string property)
     {
         return new Message(MessageType.Error, text, property, ResultErrorCodes.InvalidParameters, null);
     }
 
     /// <summary>
-    /// Cria uma mensagem com código de erro de <see cref="ResultErrorCodes.Validation"/>.
+    /// <para>
+    ///     Cria uma mensagem com código de erro de <see cref="ResultErrorCodes.Validation"/>.
+    /// </para>
     /// </summary>
     /// <param name="text">Texto da mensagem.</param>
     /// <param name="property">Propriedade relacionada a mensagem, nome da propriedade validada.</param>
     /// <param name="ex">Exception de validação.</param>
-    /// <returns>Nova instância da mensagem.</returns>
+    /// <returns>
+    /// <para>
+    ///     Nova instância da mensagem.
+    /// </para>
+    /// </returns>
     public static Message ValidationError(string text, string? property = null, Exception? ex = null)
     {
         return new Message(MessageType.Error, text, property, ResultErrorCodes.Validation, ex);
     }
 
     /// <summary>
-    /// Cria uma mensagem com código de erro de <see cref="ResultErrorCodes.ApplicationError"/>
+    /// <para>
+    ///     Cria uma mensagem com código de erro de <see cref="ResultErrorCodes.ApplicationError"/>
+    /// </para>
     /// </summary>
     /// <param name="ex">Exception ocorrida.</param>
     /// <param name="text">Texto da mensagem, optional, quando não informado será a mensagem da exception.</param>
-    /// <returns>Nova instância da mensagem.</returns>
+    /// <returns>
+    /// <para>
+    ///     Nova instância da mensagem.
+    ///</para>
+    /// </returns>
     public static Message ApplicationError(Exception ex, string? text = null)
     {
         if (ex is null)

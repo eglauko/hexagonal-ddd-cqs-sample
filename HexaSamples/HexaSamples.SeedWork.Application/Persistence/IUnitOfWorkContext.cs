@@ -23,20 +23,35 @@
 public interface IUnitOfWorkContext
 {
     /// <summary>
-    /// Salva as alterações nas entidades realizadas pelos serviços durante a unidade de trabalho.
+    /// <para>
+    ///     Salva as alterações nas entidades realizadas pelos serviços durante a unidade de trabalho.
+    /// </para>
     /// </summary>
-    /// <returns>Resultado das alterações</returns>
+    /// <returns>
+    /// <para>
+    ///     Resultado das alterações.
+    /// </para>
+    /// </returns>
     ISaveResult Save();
 
     /// <summary>
-    /// Salva, de forma assíncrona, as alterações nas entidades realizadas pelos serviços durante a unidade de trabalho.
+    /// <para>
+    ///     Salva, de forma assíncrona,
+    ///     as alterações nas entidades realizadas pelos serviços durante a unidade de trabalho.
+    /// </para>
     /// </summary>
     /// <param name="token">Token para cancelamento das tasks.</param>
-    /// <returns>Resultado das alterações.</returns>
+    /// <returns>
+    /// <para>
+    ///     Resultado das alterações.
+    /// </para>
+    /// </returns>
     Task<ISaveResult> SaveAsync(CancellationToken token = default);
 
     /// <summary>
-    /// Inicia uma transação e retorna um componente para manipulá-la.
+    /// <para>
+    ///     Inicia uma transação e retorna um componente para manipulá-la.
+    /// </para>
     /// </summary>
     /// <remarks>
     /// <para>
@@ -56,14 +71,22 @@ public interface IUnitOfWorkContext
     ///     Outras operações, como lock de registras (não recomendado), podem ser feitas através de transações.
     /// </para>
     /// </remarks>
-    /// <returns>Objeto para manipular a transação.</returns>
+    /// <returns>
+    /// <para>
+    ///     Objeto para manipular a transação.
+    /// </para>
+    /// </returns>
     /// <exception cref="NotSupportedException">
-    /// Caso a tecnologia de persistência não superte transactions.
+    /// <para>
+    ///     Caso a tecnologia de persistência não superte transactions.
+    /// </para>
     /// </exception>
     ITransaction BeginTransaction();
 
     /// <summary>
-    /// Inicia uma transação, de forma assíncrona, e retorna um componente para manipulá-la.
+    /// <para>
+    ///     Inicia uma transação, de forma assíncrona, e retorna um componente para manipulá-la.
+    /// </para>
     /// </summary>
     /// <remarks>
     /// <para>
@@ -84,14 +107,23 @@ public interface IUnitOfWorkContext
     /// </para>
     /// </remarks>
     /// <param name="token">Token para cancelamento das tasks.</param>
-    /// <returns>Objeto para manipular a transação.</returns>
+    /// <returns>
+    /// <para>
+    ///     Objeto para manipular a transação.
+    /// </para>
+    /// </returns>
     /// <exception cref="NotSupportedException">
-    /// Caso a tecnologia de persistência não superte transactions.
+    /// <para>
+    ///     Caso a tecnologia de persistência não superte transactions.
+    /// </para>
     /// </exception>
     Task<ITransaction> BeginTransactionAsync(CancellationToken token = default);
 
     /// <summary>
-    /// Limpa o contexto, removendo as entidades do tracking.
+    /// <para>
+    ///     Limpa o contexto, removendo as entidades do tracking, ou componente semelhante que mantém as entidades
+    ///     em memória.
+    /// </para>
     /// </summary>
     /// <param name="force">
     /// <para>

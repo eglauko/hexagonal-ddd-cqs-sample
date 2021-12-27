@@ -2,7 +2,9 @@
 namespace HexaSamples.SeedWork.Results;
 
 /// <summary>
-/// Interface de componente de resultado de uma operação de um serviço.
+/// <para>
+///     Interface de componente de resultado de uma operação de um serviço.
+/// </para>
 /// </summary>
 public interface IResult
 {
@@ -18,7 +20,9 @@ public interface IResult
 }
 
 /// <summary>
-/// Interface de componente de resultado de uma operação de um serviço com alguma entidade ou modelo de dados.
+/// <para>
+///     Interface de componente de resultado de uma operação de um serviço com alguma entidade ou modelo de dados.
+/// </para>
 /// </summary>
 /// <typeparam name="TValue">Tipo de dado do valor retornado no resultado da operação.</typeparam>
 public interface IResult<TValue> : IResult

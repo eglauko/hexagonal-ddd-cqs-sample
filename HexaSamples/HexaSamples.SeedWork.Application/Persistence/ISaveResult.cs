@@ -4,12 +4,16 @@ using HexaSamples.SeedWork.Results;
 namespace HexaSamples.SeedWork.Application.Persistence;
 
 /// <summary>
-/// Resultado da operação de salvar.
+/// <para>
+///     Resultado da operação de salvar.
+/// </para>
 /// </summary>
 public interface ISaveResult : IResult
 {
     /// <summary>
-    /// Quantidade de entidades modificadas.
+    /// <para>
+    ///     Quantidade de entidades modificadas.
+    /// </para>
     /// </summary>
     int Changes { get; }
 }

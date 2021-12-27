@@ -4,7 +4,9 @@ using System.Collections;
 namespace HexaSamples.SeedWork.Entities.Events;
 
 /// <summary>
-/// Implementação de <see cref="IDomainEventCollection"/>.
+/// <para>
+///     Implementação de <see cref="IDomainEventCollection"/>.
+/// </para>
 /// </summary>
 public class DomainEventCollection : IDomainEventCollection
 {

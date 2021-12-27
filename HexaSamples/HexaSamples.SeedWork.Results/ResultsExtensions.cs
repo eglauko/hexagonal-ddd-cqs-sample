@@ -1,5 +1,8 @@
 ﻿namespace HexaSamples.SeedWork.Results;
 
+/// <summary>
+/// Extension methods for results and messages.
+/// </summary>
 public static class ResultsExtensions
 {
     /// <summary>
@@ -90,6 +93,7 @@ public static class ResultsExtensions
     /// <summary>
     /// Adiciona uma mensagem informativa.
     /// </summary>
+    /// <param name="result">Resultado da operação.</param>
     /// <param name="text">Texto da mensagem.</param>
     /// <param name="property">Propriedade da mensagem.</param>
     /// <param name="code">Código da mensagem.</param>
@@ -101,6 +105,7 @@ public static class ResultsExtensions
     /// <summary>
     /// Adiciona uma mensagem de alerta.
     /// </summary>
+    /// <param name="result">Resultado da operação.</param>
     /// <param name="text">Texto da mensagem.</param>
     /// <param name="property">Propriedade da mensagem.</param>
     /// <param name="code">Código da mensagem.</param>
@@ -112,6 +117,7 @@ public static class ResultsExtensions
     /// <summary>
     /// Adiciona uma mensagem de erro e muda o resultado para falha.
     /// </summary>
+    /// <param name="result">Resultado da operação.</param>
     /// <param name="text">Texto da mensagem.</param>
     /// <param name="property">Propriedade da mensagem.</param>
     /// <param name="code">Código da mensagem.</param>
@@ -125,6 +131,7 @@ public static class ResultsExtensions
     /// <summary>
     /// Adiciona uma mensagem de erro e muda o resultado para falha.
     /// </summary>
+    /// <param name="result">Resultado da operação.</param>
     /// <param name="ex">Exception que gerou a mensagem.</param>
     /// <param name="property">Propriedade da mensagem.</param>
     /// <param name="code">Código da mensagem.</param>

@@ -215,6 +215,12 @@ public interface IFinderByCode<TEntity, TCode> : IDataService<TEntity>
 ///     Serviço de dados para mesclar dados a uma entidade existente.
 /// </para>
 /// </summary>
+/// <remarks>
+/// <para>
+///     Quando implementado junto com o padrão Unit Of Work a entidade não será persistida diretamente ao usar
+///     os métodos deste serviço.
+/// </para>
+/// </remarks>
 /// <typeparam name="TEntity">Tipo da entidade.</typeparam>
 public interface IUpdater<TEntity> : IDataService<TEntity>
 {
@@ -267,6 +273,12 @@ public interface IUpdater<TEntity> : IDataService<TEntity>
 ///     Serviço de dados para excluir entidades.
 /// </para>
 /// </summary>
+/// <remarks>
+/// <para>
+///     Quando implementado junto com o padrão Unit Of Work a remoção da entidade não será persistida diretamente ao usar
+///     os métodos deste serviço.
+/// </para>
+/// </remarks>
 /// <typeparam name="TEntity">Tipo da entidade.</typeparam>
 public interface IRemover<TEntity> : IDataService<TEntity>
 {
@@ -334,7 +346,7 @@ public interface IGenerateId<TId> : IDataService
 
 /// <summary>
 /// <para>
-///     Interface complementar para repositório que podem gerar um código para entidade.
+///     Interface complementar para repositórios que podem gerar um código para entidade.
 /// </para>
 /// </summary>
 /// <typeparam name="TCode">Tipo de dado do código.</typeparam>

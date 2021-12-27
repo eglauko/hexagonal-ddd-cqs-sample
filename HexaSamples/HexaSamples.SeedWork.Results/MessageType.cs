@@ -2,7 +2,9 @@
 namespace HexaSamples.SeedWork.Results;
 
 /// <summary>
-/// Enumerador dos tipo de mensagens de um resultado de operação.
+/// <para>
+///     Enumerador dos tipo de mensagens de um resultado de operação.
+/// </para>
 /// </summary>
 public enum MessageType : int
 {
