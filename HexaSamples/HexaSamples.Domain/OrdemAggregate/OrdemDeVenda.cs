@@ -10,6 +10,12 @@ public class OrdemDeVenda : AggregateRoot<Guid>
 {
     private ICollection<ItemVenda>? _itens;
 
+    /// <summary>
+    /// Cria nova Ordem de Venda.
+    /// </summary>
+    /// <param name="loja">A loja.</param>
+    /// <param name="cliente">O Cliente</param>
+    /// <exception cref="ArgumentNullException">Caso algum parâmerto seja nulo.</exception>
     public OrdemDeVenda(Loja loja, Pessoa cliente)
     {
         Loja = loja ?? throw new ArgumentNullException(nameof(loja));
@@ -17,7 +23,7 @@ public class OrdemDeVenda : AggregateRoot<Guid>
         DataCriacao = DateTimeOffset.Now;
         Situacao = OrdemSituacao.EmEdicao;
     }
-        
+    
     /// <summary>
     /// Construtor for deserializers.
     /// </summary>
@@ -93,7 +99,7 @@ public class OrdemDeVenda : AggregateRoot<Guid>
         else
         {
             item = new ItemVenda(Loja, produto, quantidade);
-            if (item.ValorUnitario == 0)
+            if (item.ValorUnitario is 0)
                 return BaseResult.ValidationError("Produto sem preço de venda!");
 
             InternalItens.Add(item);

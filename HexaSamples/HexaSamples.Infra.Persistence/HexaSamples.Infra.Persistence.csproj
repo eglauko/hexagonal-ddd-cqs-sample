@@ -6,4 +6,14 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\HexaSamples.Application.Cqs\HexaSamples.Application.Cqs.csproj" />
+    <ProjectReference Include="..\HexaSamples.Domain\HexaSamples.Domain.csproj" />
+    <ProjectReference Include="..\HexaSamples.SeedWork.Persistence.EntityFrameworkCore\HexaSamples.SeedWork.Persistence.EntityFrameworkCore.csproj" />
+  </ItemGroup>
+
 </Project>

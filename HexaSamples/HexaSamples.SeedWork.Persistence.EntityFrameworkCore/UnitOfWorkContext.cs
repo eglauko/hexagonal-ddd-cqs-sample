@@ -1,6 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
-using System.ComponentModel.DataAnnotations;
 using HexaSamples.SeedWork.Application.Persistence;
 
 namespace HexaSamples.SeedWork.Persistence.EntityFrameworkCore;

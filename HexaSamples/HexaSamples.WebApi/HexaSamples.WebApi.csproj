@@ -7,11 +7,15 @@
     </PropertyGroup>
 
     <ItemGroup>
+        <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="6.0.0" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Proxies" Version="6.0.0" />
         <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
     </ItemGroup>
 
     <ItemGroup>
       <ProjectReference Include="..\HexaSamples.Application.Cqs\HexaSamples.Application.Cqs.csproj" />
+      <ProjectReference Include="..\HexaSamples.Application.Handlers\HexaSamples.Application.Handlers.csproj" />
+      <ProjectReference Include="..\HexaSamples.Infra.Persistence\HexaSamples.Infra.Persistence.csproj" />
     </ItemGroup>
 
 </Project>
