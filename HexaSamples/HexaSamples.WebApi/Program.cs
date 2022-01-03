@@ -1,6 +1,6 @@
 using HexaSamples.Domain.OrdemAggregate;
 using HexaSamples.Domain.SupportEntities;
-using HexaSamples.Infra.Persistence.Contexts;
+using HexaSamples.Infra.Persistence.Configs;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);

@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 
-namespace HexaSamples.Infra.Persistence.Contexts;
+namespace HexaSamples.Infra.Persistence.Configs;
 
 public class SampleDbContext : DbContext
 {
