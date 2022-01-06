@@ -2,15 +2,15 @@ namespace HexaSamples.SeedWork.Entities.Events;
 
 /// <summary>
 /// <para>
-///     Implementação abstrata para eventos de domínio.
+///     Abstract implementation for domain events.
 /// </para>
 /// </summary>
 public abstract class DomainEventBase : IDomainEvent
 {
     /// <summary>
     /// <para>
-    ///     Cria um novo evento gerando um novo identificador e utilizando a data e hora atual para determinar
-    ///     quando ocorreu o evento.
+    ///     Creates a new event by generating a new identifier and using the current date and time
+    ///     to determine when the event occurred.
     /// </para>
     /// </summary>
     protected DomainEventBase()
@@ -21,12 +21,12 @@ public abstract class DomainEventBase : IDomainEvent
 
     /// <summary>
     /// <para>
-    ///     Cria um evento determinando o Id e quando ocorreu.
-    ///     Normalmente utilizado para deserialização.
+    ///     Creates a new instance of the event determining the Id and when it occurred.
+    ///     Normally used for deserialisation.
     /// </para>
     /// </summary>
-    /// <param name="id">Id do evento.</param>
-    /// <param name="occurred">Quando ocorreu.</param>
+    /// <param name="id">The event ID.</param>
+    /// <param name="occurred">When the event occurred.</param>
     protected DomainEventBase(Guid id, DateTimeOffset occurred)
     {
         Id = id;
@@ -34,12 +34,12 @@ public abstract class DomainEventBase : IDomainEvent
     }
 
     /// <summary>
-    /// Id do evento.
+    /// The event ID.
     /// </summary>
     public Guid Id { get; }
     
     /// <summary>
-    /// Quando ocorreu o  evento.
+    /// When the event occurred.
     /// </summary>
     public DateTimeOffset Occurred { get; }
 }

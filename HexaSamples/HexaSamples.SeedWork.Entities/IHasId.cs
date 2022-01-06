@@ -3,14 +3,14 @@ namespace HexaSamples.SeedWork.Entities;
 
 /// <summary>
 /// <para>
-///     Interface para modelos de dados com Id, geralmente entidades, ou objetos ao estilo DTO, os quais referenciam
-///     o Id de uma entidade.
+///     Interface to data models that contain an ID, usually entities, or DTO-style objects,
+///     which reference the ID of an entity.
 /// </para>
 /// </summary>
 public interface IHasId<TId>
 {
     /// <summary>
-    /// Id do modelo de dados.
+    /// The ID of the data model.
     /// </summary>
     TId Id { get; }
 }

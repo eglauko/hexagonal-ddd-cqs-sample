@@ -3,17 +3,17 @@ namespace HexaSamples.SeedWork.Entities;
 
 /// <summary>
 /// <para>
-///     Interface para modelos de dados com código.
+///     Interface to data models with a code property.
 /// </para>
 /// <para>
-///     O código não é o ID da entidade, mas um identificador único, normalmente mais amigável aos humanos.
+///     The code is not the entity ID, but a unique identifier, usually more human-friendly.
 /// </para>
 /// </summary>
-/// <typeparam name="TCode">Tipo de dado do código.</typeparam>
+/// <typeparam name="TCode">Data type of the code.</typeparam>
 public interface IHasCodigo<TCode>
 {
     /// <summary>
-    /// Código do modelo de dados.
+    /// The code of the data model.
     /// </summary>
     TCode Codigo { get; }
 }

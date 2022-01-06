@@ -4,23 +4,23 @@ namespace HexaSamples.SeedWork.Entities;
 
 /// <summary>
 /// <para>
-///     Entidade que raiz de agregado.
+///     A interface for identifying the aggregate root entity.
 /// </para>
 /// <para>
-///     A raiz de agregado é a entidade principal de um agregado.
-///     Geralmente só existirá repositórios para as entidades raiz de agregado, e esta entidade criará e armazenará
-///     os eventos ocorridos em todos objetos internos do agregado.
+///     The aggregate root is the principal entity of an aggregate.
+///     Generally there will only be repositories for the aggregate root entities,
+///     and this entity will create and store the events occurred in all internal objects of the aggregate.
 /// </para>
 /// </summary>
 public interface IAggregateRoot : IEntity, IHasEvents { }
 
 /// <summary>
 /// <para>
-///     Entidade que raiz de agregado com definição do tipo do Id.
+///     A interface for identifying the aggregate root entity, and define the ID type.
 /// </para>
 /// <para>
-///     Tem as mesmas caracteristicas que <see cref="IAggregateRoot"/>.
+///     See also <see cref="IAggregateRoot"/>.
 /// </para>
 /// </summary>
-/// <typeparam name="TId">Tipo de dado do Id da entidade.</typeparam>
+/// <typeparam name="TId">The entity ID type.</typeparam>
 public interface IAggregateRoot<TId> : IAggregateRoot, IEntity<TId> { }

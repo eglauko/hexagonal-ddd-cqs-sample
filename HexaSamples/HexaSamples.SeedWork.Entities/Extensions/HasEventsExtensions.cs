@@ -13,15 +13,16 @@ public static class HasEventsExtensions
 {
     /// <summary>
     /// <para>
-    ///     Verifica se existe um evento de um determinado tipo.
+    ///     Checks if an event of a certain type exists.
     /// </para>
     /// </summary>
-    /// <typeparam name="TEvent">Tipo do evento.</typeparam>
-    /// <param name="hasEvents">Objeto que contém uma coleção de eventos.</param>
+    /// <typeparam name="TEvent">The event type.</typeparam>
+    /// <param name="hasEvents">An object that contains the domain event collection.</param>
     /// <returns>
     /// <para>
-    ///     Verdadeiro se existe, falso caso contrário.
-    /// </para></returns>
+    ///     True if exists, otherwise false.
+    /// </para>
+    /// </returns>
     public static bool HasEvent<TEvent>(this IHasEvents hasEvents)
         where TEvent : class, IDomainEvent
     {
@@ -33,16 +34,17 @@ public static class HasEventsExtensions
 
     /// <summary>
     /// <para>
-    ///     Tenta obter o primeiro evento de um determinado tipo.
+    ///     Try get the first evento for a given type.
     /// </para>
     /// </summary>
-    /// <typeparam name="TEvent">Tipo do evento.</typeparam>
-    /// <param name="hasEvents">Objeto que contém uma coleção de eventos.</param>
-    /// <param name="event">Referência de retorno.</param>
+    /// <typeparam name="TEvent">The event type.</typeparam>
+    /// <param name="hasEvents">An object that contains the domain event collection.</param>
+    /// <param name="event">The event instance, if exists.</param>
     /// <returns>
     /// <para>
-    ///     Verdadeiro se encontrou um objeto do tipo determinado, falso caso contrário.
-    /// </para></returns>
+    ///     True if find some event for the given type, otherwise false.
+    /// </para>
+    /// </returns>
     public static bool TryGetEvent<TEvent>(this IHasEvents hasEvents, out TEvent? @event)
         where TEvent : class, IDomainEvent
     {
@@ -55,15 +57,16 @@ public static class HasEventsExtensions
 
     /// <summary>
     /// <para>
-    ///     Obtém todos os eventos de um determinado tipo.
+    ///     Get all events for a given type.
     /// </para>
     /// </summary>
-    /// <typeparam name="TEvent">Tipo do evento.</typeparam>
-    /// <param name="hasEvents">Objeto que contém uma coleção de eventos.</param>
+    /// <typeparam name="TEvent">The event type.</typeparam>
+    /// <param name="hasEvents">An object that contains the domain event collection.</param>
     /// <returns>
     /// <para>
-    ///     Um <see cref="IEnumerable{T}"/> dos eventos.
-    /// </para></returns>
+    ///     An <see cref="IEnumerable{T}"/> of the events.
+    /// </para>
+    /// </returns>
     public static IEnumerable<TEvent> GetEvents<TEvent>(this IHasEvents hasEvents)
         where TEvent : class, IDomainEvent
     {
@@ -75,16 +78,17 @@ public static class HasEventsExtensions
 
     /// <summary>
     /// <para>
-    ///     Obtém todos os eventos de um determinado tipo.
+    ///     try get all events for a given type.
     /// </para>
     /// </summary>
-    /// <typeparam name="TEvent">Tipo do evento.</typeparam>
-    /// <param name="hasEvents">Objeto que contém uma coleção de eventos.</param>
-    /// <param name="events">Um <see cref="IEnumerable{T}"/> dos eventos.</param>
+    /// <typeparam name="TEvent">The event type.</typeparam>
+    /// <param name="hasEvents">An object that contains the domain event collection.</param>
+    /// <param name="events">An <see cref="IEnumerable{T}"/> of the events.</param>
     /// <returns>
     /// <para>
-    ///     Verdadeiro se encontrou algum objeto do tipo determinado, falso caso contrário.
-    /// </para></returns>
+    ///     True if find some event for the given type, otherwise false.
+    /// </para>
+    /// </returns>
     public static bool TryGetEvents<TEvent>(this IHasEvents hasEvents, out IEnumerable<TEvent> events)
         where TEvent : class, IDomainEvent
     {

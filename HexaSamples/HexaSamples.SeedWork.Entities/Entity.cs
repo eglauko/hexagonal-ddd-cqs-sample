@@ -3,29 +3,29 @@ namespace HexaSamples.SeedWork.Entities;
 
 /// <summary>
 /// <para>
-///     Implementação base para entidades.
+///     Base implementation for <see cref="IEntity{TId}"/>
 /// </para>
 /// </summary>
-/// <typeparam name="TId">Tipo do ID da entidade.</typeparam>
+/// <typeparam name="TId">The entity ID type.</typeparam>
 public abstract class Entity<TId> : IEntity<TId>
 {
     /// <summary>
-    /// Id da entidade.
+    /// The entity ID type.
     /// </summary>
     public TId Id { get; protected set; }
 }
 
 /// <summary>
 /// <para>
-///     Implementação base para entidades com código.
+///     Base implementation for entities that have a code property.
 /// </para>
 /// </summary>
-/// <typeparam name="TId">Tipo do ID da entidade.</typeparam>
-/// <typeparam name="TCode">Tipo do Código da entidade</typeparam>
+/// <typeparam name="TId">The entity ID type.</typeparam>
+/// <typeparam name="TCode">The entity Code type.</typeparam>
 public abstract class Entity<TId, TCode> : Entity<TId>, IHasCodigo<TCode>
 {
     /// <summary>
-    /// Código do modelo de dados.
+    /// The entity Code.
     /// </summary>
     public TCode Codigo { get; protected set; }
 }

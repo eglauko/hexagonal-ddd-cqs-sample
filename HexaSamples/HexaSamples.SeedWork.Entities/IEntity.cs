@@ -2,15 +2,15 @@
 
 /// <summary>
 /// <para>
-///     Interface para determinar as entidades.
+///     Interface for identifying entities.
 /// </para>
 /// </summary>
 public interface IEntity { }
 
 /// <summary>
 /// <para>
-///     Interface para determinar as entidades com um tipo de Id definido.
+///     Interface for identifying entities and the type of the ID.
 /// </para>
 /// </summary>
-/// <typeparam name="TId">Tipo de dado do Id da entidade.</typeparam>
+/// <typeparam name="TId">The entity ID type.</typeparam>
 public interface IEntity<TId> : IEntity, IHasId<TId> { }

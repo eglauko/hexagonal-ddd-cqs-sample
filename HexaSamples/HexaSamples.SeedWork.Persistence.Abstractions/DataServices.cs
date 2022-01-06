@@ -4,21 +4,6 @@ namespace HexaSamples.SeedWork.Persistence.Abstractions;
 
 /// <summary>
 /// <para>
-///     Interface para assinar um serviço de dados.
-/// </para>
-/// </summary>
-public interface IDataService { }
-
-/// <summary>
-/// <para>
-///     Interface para assinar um serviço de dados para um tipo especificado.
-/// </para>
-/// </summary>
-/// <typeparam name="TEntity">Tipo de dado.</typeparam>
-public interface IDataService<TEntity> : IDataService { }
-
-/// <summary>
-/// <para>
 ///     Serviço de dados para adicionar e persistir novas entidades.
 /// </para>
 /// </summary>
@@ -29,7 +14,7 @@ public interface IDataService<TEntity> : IDataService { }
 /// </para>
 /// </remarks>
 /// <typeparam name="TEntity">Tipo da entidade.</typeparam>
-public interface IAdder<TEntity> : IDataService<TEntity>
+public interface IAdder<TEntity>
 {
     /// <summary>
     /// <para>
@@ -52,7 +37,7 @@ public interface IAdder<TEntity> : IDataService<TEntity>
 /// </para>
 /// </summary>
 /// <typeparam name="TEntity">Tipo da entidade.</typeparam>
-public interface IFinder<TEntity> : IDataService<TEntity>
+public interface IFinder<TEntity>
 {
     /// <summary>
     /// <para>
@@ -93,7 +78,7 @@ public interface IFinder<TEntity> : IDataService<TEntity>
 /// </summary>
 /// <typeparam name="TEntity">Tipo da entidade.</typeparam>
 /// <typeparam name="TIdentifierFilter">Tipo do filtro identificador.</typeparam>
-public interface IFinder<TEntity, in TIdentifierFilter> : IDataService<TEntity>
+public interface IFinder<TEntity, in TIdentifierFilter>
 {
     /// <summary>
     /// <para>
@@ -135,7 +120,7 @@ public interface IFinder<TEntity, in TIdentifierFilter> : IDataService<TEntity>
 /// </para>
 /// </remarks>
 /// <typeparam name="TEntity">Tipo de dado.</typeparam>
-public interface IFinderByGuid<TEntity> : IDataService<TEntity>
+public interface IFinderByGuid<TEntity>
     where TEntity : IHasGuid
 {
     /// <summary>
@@ -181,7 +166,7 @@ public interface IFinderByGuid<TEntity> : IDataService<TEntity>
 /// </remarks>
 /// <typeparam name="TEntity">Tipo de dado.</typeparam>
 /// <typeparam name="TCode">Tipo do código.</typeparam>
-public interface IFinderByCode<TEntity, TCode> : IDataService<TEntity>
+public interface IFinderByCode<TEntity, TCode>
     where TEntity : IHasCodigo<TCode>
 {
     /// <summary>
@@ -222,7 +207,7 @@ public interface IFinderByCode<TEntity, TCode> : IDataService<TEntity>
 /// </para>
 /// </remarks>
 /// <typeparam name="TEntity">Tipo da entidade.</typeparam>
-public interface IUpdater<TEntity> : IDataService<TEntity>
+public interface IUpdater<TEntity>
 {
     /// <summary>
     /// <para>
@@ -280,7 +265,7 @@ public interface IUpdater<TEntity> : IDataService<TEntity>
 /// </para>
 /// </remarks>
 /// <typeparam name="TEntity">Tipo da entidade.</typeparam>
-public interface IRemover<TEntity> : IDataService<TEntity>
+public interface IRemover<TEntity>
 {
     /// <summary>
     /// <para>
@@ -329,7 +314,7 @@ public interface IRemover<TEntity> : IDataService<TEntity>
 /// </para>
 /// </summary>
 /// <typeparam name="TId">Tipo do Id.</typeparam>
-public interface IGenerateId<TId> : IDataService
+public interface IGenerateId<TId>
 {
     /// <summary>
     /// <para>
@@ -350,7 +335,7 @@ public interface IGenerateId<TId> : IDataService
 /// </para>
 /// </summary>
 /// <typeparam name="TCode">Tipo de dado do código.</typeparam>
-public interface IGenerateCode<TCode> : IDataService
+public interface IGenerateCode<TCode>
 {
     /// <summary>
     /// <para>

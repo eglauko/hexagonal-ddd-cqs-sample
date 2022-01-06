@@ -3,32 +3,34 @@ namespace HexaSamples.SeedWork.Entities.Events;
 
 /// <summary>
 /// <para>
-///     A coleção de eventos de domínio é uma interface para componentes de publicação de eventos de domínio.
+///     The domain event collection is an interface/component for storing domain events created by a aggregate.
+///     Later, these events may be published/dispatched by other components.
 /// </para>
 /// <para>
-///     Os eventos de domínio serão publicados, realmente, por algum componente vinculado a coleção de eventos,
-///     geralmente ao salvar o contexto da entidade que o criou.
+///     Domain events will actually be published/dispatched by some component bound to the event collection,
+///     usually when saving the context of the entity that created it, or by some application service
+///     (or use case interactor).
 /// </para>
 /// </summary>
 /// <remarks>
 /// <para>
-///     Este componente deverá ser usado por entidades que são raizes de agregados.
-///     Estas entidades, que são raizes de agregados, deverão implementar IHasEvents.
+///     This component should be used by entities that are roots of aggregates.
+///     These entities, which are roots of aggregates, shall implement IHasEvents.
 /// </para>
 /// </remarks>
 public interface IDomainEventCollection : ICollection<IDomainEvent>
 {
     /// <summary>
     /// <para>
-    ///     Adiciona um observador a coleção de eventos.
+    ///     Adds an observer to the event collection.
     /// </para>
     /// <para>
-    ///     O Observador irá recebeder todas os eventos adicionados na coleção.
-    ///     Se já existir eventos adicionados a coleção ao observador ser adicionado a ela,
-    ///     eles serão passados ao observador, um a um, no momento da adição do observador.
-    ///     Os eventos seguintes serão passados ao observador no momento da adição do evento.
+    ///     The Observer will receive all events added to the collection.
+    ///     If there are already events added to the collection when the observer is added,
+    ///     the events will be sent to the observer, one by one, when the observer is added.
+    ///     Subsequent events will be passed to the observer when the event is added.
     /// </para>
     /// </summary>
-    /// <param name="observerAction">Ação observadora.</param>
+    /// <param name="observerAction">The observer action.</param>
     void Observe(Action<IDomainEvent> observerAction);
 }

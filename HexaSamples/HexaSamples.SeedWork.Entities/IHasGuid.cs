@@ -3,22 +3,23 @@ namespace HexaSamples.SeedWork.Entities;
 
 /// <summary>
 /// <para>
-///     Interface para entidades que possuem um campo do tipo Guid.
+///     Interface for entities that have a Guid type field.
 /// </para>
 /// <para>
-///     Este campo de identificador único não é o mesmo que o ID.
+///     This unique identifier field is not the same as the ID.
 /// </para>
 /// <para>
-///     O objetivo desta propriedade Guid é manter um identificador global único de uma mesma entidade
-///     distribuída por várias bases de dados de contextos diferentes.
-///     Cada base de dados poderá ter sua estrutura e seu tipo de Id, com valores diferentes para estes IDs,
-///     porém, este Guid se repetirá por entre todas as bases de dados. 
+///     The purpose of this Guid property is to maintain a globally unique identifier of the same entity
+///     distributed over several databases of different contexts.
+///     Each database can have its structure and its Id type,
+///     with different values for these IDs, however,
+///     this Guid will maintain the same among all the databases.
 /// </para>
 /// </summary>
 public interface IHasGuid
 {
     /// <summary>
-    /// O Guid da entidade.
+    /// The Guid of the entity.
     /// </summary>
     Guid Guid { get; }
 }

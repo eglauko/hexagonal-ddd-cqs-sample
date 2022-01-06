@@ -5,7 +5,7 @@ namespace HexaSamples.SeedWork.Entities.Events;
 
 /// <summary>
 /// <para>
-///     Implementação de <see cref="IDomainEventCollection"/>.
+///     Default implementation of the <see cref="IDomainEventCollection"/>.
 /// </para>
 /// </summary>
 public class DomainEventCollection : IDomainEventCollection
@@ -14,80 +14,48 @@ public class DomainEventCollection : IDomainEventCollection
     private List<Action<IDomainEvent>>? _observers;
 
     /// <summary>
-    /// Lista interna que armazena os eventos de domínio.
+    /// <para>
+    ///     Internal list that stores the domain events.
+    /// </para>
     /// </summary>
     protected List<IDomainEvent> InnerList => _innerList ??= new List<IDomainEvent>();
 
-    /// <summary>
-    /// Contagem de eventos adicionados na coleção.
-    /// </summary>
+    /// <inheritdoc />
     public int Count => _innerList?.Count ?? 0;
 
     /// <summary>
-    /// Sempre falso, a coleção sempre poderá receber eventos.
+    /// <para>
+    ///     Always false, the collection will always be able to receive events.
+    /// </para>
     /// </summary>
     public bool IsReadOnly => false;
 
-    /// <summary>
-    /// Adiciona um novo evento a coleção.
-    /// </summary>
-    /// <param name="item">Evento a ser adicionado a coleção.</param>
+    /// <inheritdoc />
     public virtual void Add(IDomainEvent item)
     {
         InnerList.Add(item);
         Fire(item);
     }
 
-    /// <summary>
-    /// Limpa os eventos da coleção.
-    /// </summary>
+    /// <inheritdoc />
     public void Clear() => _innerList?.Clear();
 
-    /// <summary>
-    /// Se a coleção tem algum evento adicionado.
-    /// </summary>
-    /// <param name="item">Evento para ser verificado.</param>
-    /// <returns>Verdadeiro se o evento foi adicionado à coleção, falso caso contrario.</returns>
+    /// <inheritdoc />
     public bool Contains(IDomainEvent item) => _innerList?.Contains(item) ?? false;
 
-    /// <summary>
-    /// Ver CopyTo de ICollection.
-    /// </summary>
-    /// <param name="array">Array para onde será copiado os eventos.</param>
-    /// <param name="arrayIndex">Índice inicial dos eventos que deverão ser copiados.</param>
+    /// <inheritdoc />
     public void CopyTo(IDomainEvent[] array, int arrayIndex) => InnerList.CopyTo(array, arrayIndex);
 
-    /// <summary>
-    /// Retorna um IEnumerator para os eventos da coleção.
-    /// </summary>
-    /// <returns>IEnumerator para os eventos da coleção.</returns>
+    /// <inheritdoc />
     public IEnumerator<IDomainEvent> GetEnumerator() => InnerList.GetEnumerator();
 
-    /// <summary>
-    /// Remove um evento que foi adicionado a coleção.
-    /// </summary>
-    /// <param name="item">Evento a ser removido.</param>
-    /// <returns>Verdadeiro se o evento foi removido, falso caso contrário.</returns>
+    /// <inheritdoc />
     public bool Remove(IDomainEvent item) => _innerList?.Remove(item) ?? false;
 
-    /// <summary>
-    /// Retorna um IEnumerator para os eventos da coleção.
-    /// </summary>
-    /// <returns>IEnumerator para os eventos da coleção.</returns>
+    /// <inheritdoc />
     IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
-    /// <summary>
-    /// <para>
-    /// Adiciona um observador a coleção de eventos.
-    /// </para>
-    /// <para>
-    /// O Observador irá recebeder todas os eventos adicionados na coleção.
-    /// Se já existir eventos adicionados a coleção ao observador ser adicionado a ela,
-    /// eles serão passados ao observador, um a um, no momento da adição do observador.
-    /// Os eventos seguintes serão passados ao observador no momento da adição do evento.
-    /// </para>
-    /// </summary>
-    /// <param name="observerAction">Ação observadora</param>
+    /// <inheritdoc />
     public void Observe(Action<IDomainEvent> observerAction)
     {
         if (observerAction is null)
@@ -99,9 +67,5 @@ public class DomainEventCollection : IDomainEventCollection
         _innerList?.ForEach(observerAction);
     }
 
-    private void Fire(IDomainEvent evt)
-    {
-        if (_observers is not null)
-            _observers.ForEach(a => a(evt));
-    }
+    private void Fire(IDomainEvent evt) =>_observers?.ForEach(a => a(evt));
 }

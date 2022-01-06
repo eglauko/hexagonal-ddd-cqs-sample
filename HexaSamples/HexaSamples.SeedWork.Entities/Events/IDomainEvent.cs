@@ -3,16 +3,16 @@ namespace HexaSamples.SeedWork.Entities.Events;
 
 /// <summary>
 /// <para>
-///     Evento de domínio.
+///     Domain event.
 /// </para>
 /// <remarks>
-///     Veja também <see cref="DomainEventBase"/>
+///     See also <see cref="DomainEventBase"/>.
 /// </remarks>
 /// </summary>
 public interface IDomainEvent : IHasId<Guid>
 {
     /// <summary>
-    /// Quando ocorreu o evento.
+    /// When the event occurred.
     /// </summary>
     DateTimeOffset Occurred { get; }
 }
