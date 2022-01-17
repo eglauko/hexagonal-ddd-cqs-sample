@@ -4,6 +4,7 @@ using HexaSamples.SeedWork.Application.Persistence;
 using HexaSamples.SeedWork.Persistence.EntityFrameworkCore;
 using HexaSamples.SeedWork.Persistence.EntityFrameworkCore.Extensions;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 
 namespace Microsoft.Extensions.DependencyInjection;
 
@@ -17,7 +18,7 @@ public static class PersistenceServiceCollectionExtensions
         ServiceLifetime lifetime = ServiceLifetime.Scoped)
         where TDbContext : DbContext
     {
-        services.Add(ServiceDescriptor.Describe(
+        services.TryAdd(ServiceDescriptor.Describe(
             typeof(IUnitOfWorkContext), 
             typeof(UnitOfWorkContext<>).MakeGenericType(typeof(TDbContext)),
             lifetime));

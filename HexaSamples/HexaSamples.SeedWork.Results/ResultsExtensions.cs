@@ -6,11 +6,13 @@
 public static class ResultsExtensions
 {
     /// <summary>
-    /// Garante que o resultado é sucesso, caso contrário dispara uma <see cref="InvalidOperationException"/>.
+    /// It ensures that the result is success, otherwise it fires a <see cref="InvalidOperationException"/>.
     /// </summary>
-    /// <param name="result">Resultado da operação.</param>
-    /// <returns>A mesma instância de <paramref name="result"/>.</returns>
-    /// <exception cref="InvalidOperationException">Caso o resultado não seja sucesso.</exception>
+    /// <param name="result">The result.</param>
+    /// <returns>The same instance of <paramref name="result"/>.</returns>
+    /// <exception cref="InvalidOperationException">
+    ///     Case the result is not success.
+    /// </exception>
     public static IResult EnsureSuccess(this IResult result)
     {
         if (result.Success)
@@ -28,13 +30,15 @@ public static class ResultsExtensions
     }
 
     /// <summary>
-    /// Garante que o resultado é sucesso, caso contrário dispara uma <see cref="InvalidOperationException"/>.
+    /// It ensures that the result is success, otherwise it fires a <see cref="InvalidOperationException"/>.
     /// </summary>
-    /// <typeparam name="TModel">Tipo do modelo do resultado.</typeparam>
-    /// <param name="result">Resultado da operação.</param>
-    /// <returns>A mesma instância de <paramref name="result"/>.</returns>
-    /// <exception cref="InvalidOperationException">Caso o resultado não seja sucesso.</exception>
-    public static IResult<TModel> EnsureSuccess<TModel>(this IResult<TModel> result)
+    /// <typeparam name="TValue">The result value type.</typeparam>
+    /// <param name="result">The result.</param>
+    /// <returns>The same instance of <paramref name="result"/>.</returns>
+    /// <exception cref="InvalidOperationException">
+    ///     Case the result is not success.
+    /// </exception>
+    public static IResult<TValue> EnsureSuccess<TValue>(this IResult<TValue> result)
     {
         if (result.Success)
             return result;
@@ -44,49 +48,55 @@ public static class ResultsExtensions
 
     /// <summary>
     /// <para>
-    ///     Cria um novo resultado do tipo <typeparamref name="TModel"/> a partir de um resultado existente.
+    ///     Creates a new result of type <typeparamref name="TValue"/> from an existing result.
     /// </para>
     /// <para>
-    ///     Este resultado será de falha por não conter o modelo.
+    ///     This result will fail because it does not contain the model.
     /// </para>
     /// </summary>
-    /// <typeparam name="TModel">Tipo do modelo do resultado.</typeparam>
-    /// <param name="result">Resultado da operação.</param>
-    /// <returns>A mesma instância de <paramref name="result"/>.</returns>
-    public static IResult<TModel> Adapt<TModel>(this IResult result)
+    /// <typeparam name="TValue">The result value type.</typeparam>
+    /// <param name="result">The result.</param>
+    /// <returns>
+    ///     A new instance of <see cref="IResult{TValue}"/>.
+    /// </returns>
+    public static IResult<TValue> Adapt<TValue>(this IResult result)
     {
-        return new ValueResult<TModel>(result);
+        return new ValueResult<TValue>(result);
     }
 
     /// <summary>
     /// <para>
-    ///     Cria um novo resultado do tipo <typeparamref name="TModel"/> a partir de um resultado existente.
+    ///     Creates a new result of type <typeparamref name="TValue"/> from an existing result.
     /// </para>
     /// </summary>
-    /// <typeparam name="TModel">Tipo do modelo do resultado.</typeparam>
-    /// <param name="result">Resultado da operação.</param>
-    /// <param name="model"></param>
-    /// <returns>A mesma instância de <paramref name="result"/>.</returns>
-    public static IResult<TModel> Adapt<TModel>(this IResult result, TModel model)
+    /// <typeparam name="TModel">The result value type.</typeparam>
+    /// <param name="result">The result.</param>
+    /// <param name="value">The operation result value.</param>
+    /// <returns>
+    ///     A new instance of <see cref="IResult{TValue}"/>.
+    /// </returns>
+    public static IResult<TModel> Adapt<TModel>(this IResult result, TModel value)
     {
-        return new ValueResult<TModel>(model, result);
+        return new ValueResult<TModel>(value, result);
     }
 
     /// <summary>
-    /// Cria um novo resultado a partir deste, com as mesmas mensagens, adaptando o modelo de dados.
+    /// Creates a new result from this one, with the same messages, adapting the data model.
     /// </summary>
-    /// <typeparam name="TModel">Tipo de dado do modelo do resultado atual.</typeparam>
-    /// <typeparam name="TAdapted">Tipo de dado para adaptar.</typeparam>
-    /// <param name="result">Resultado da operação.</param>
-    /// <param name="adapter">Adaptador.</param>
-    /// <returns>Nova instância de <see cref="TypeResult{TModel}"/>.</returns>
-    public static IResult<TAdapted> Adapt<TModel, TAdapted>(this IResult<TModel> result, Func<TModel, TAdapted> adapter)
+    /// <typeparam name="TValue">The type of operation result value.</typeparam>
+    /// <typeparam name="TAdaptedValue">The adapted type.</typeparam>
+    /// <param name="result">The result.</param>
+    /// <param name="adapter">The adapter.</param>
+    /// <returns>
+    ///     A new instance of <see cref="IResult{TValue}"/>.
+    /// </returns>
+    public static IResult<TAdaptedValue> Adapt<TValue, TAdaptedValue>(this IResult<TValue> result, Func<TValue, TAdaptedValue> adapter)
     {
         if (adapter is null)
             throw new ArgumentNullException(nameof(adapter));
 
-        TAdapted? newModel = result.Value is null ? default : adapter(result.Value);
-        var newResult = new ValueResult<TAdapted>(newModel);
+        TAdaptedValue? newModel = result.Value is null ? default : adapter(result.Value);
+        var newResult = new ValueResult<TAdaptedValue>(newModel);
         return newResult.Join(result);
     }
 
@@ -238,20 +248,6 @@ public static class ResultsExtensions
         where TResult : BaseResult
     {
         result.AddInfo(infoText, propertyName, code);
-        return result;
-    }
-
-    /// <summary>
-    /// Adiciona uma mensagem e retorna o mesmo objeto de resultado da operação.
-    /// </summary>
-    /// <typeparam name="TResult">Tipo do resultado.</typeparam>
-    /// <param name="result">Resultado da operação.</param>
-    /// <param name="errorText">Mensagem de erro.</param>
-    /// <returns>A mesma instância de <paramref name="result"/> para chamadas encadeadas.</returns>
-    public static TResult WithWarning<TResult>(this TResult result, string errorText)
-        where TResult : BaseResult
-    {
-        result.AddWarning(errorText);
         return result;
     }
 

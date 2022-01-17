@@ -10,6 +10,8 @@ public class OrdemDeVendaMapping : IEntityTypeConfiguration<OrdemDeVenda>
     {
         builder.ToTable("OrdensDeVenda");
 
+        builder.Ignore(o => o.DomainEvents);
+
         builder.HasMany(o => o.Itens).WithOne().HasForeignKey("OrdemDeVendaId");
         builder.HasOne(o => o.Loja).WithMany().HasForeignKey("LojaId");
         builder.HasOne(o => o.Cliente).WithMany().HasForeignKey("ClienteId");

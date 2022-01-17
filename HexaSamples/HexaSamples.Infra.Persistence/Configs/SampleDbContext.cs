@@ -1,4 +1,6 @@
+using HexaSamples.SeedWork.Entities.Events;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace HexaSamples.Infra.Persistence.Configs;
 

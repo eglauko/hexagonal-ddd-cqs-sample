@@ -42,11 +42,18 @@ internal class UnitOfWorkBuilder<TDbContext> : IUnitOfWorkBuilder<TDbContext>
 
     public IUnitOfWorkBuilder<TDbContext> AddRepository<TEntity>() where TEntity : class
     {
+        var repoType = typeof(IRepository<>).MakeGenericType(typeof(TEntity));
+            
         services.Add(ServiceDescriptor.Describe(
             typeof(IRepository<>).MakeGenericType(typeof(TEntity)),
             typeof(Repository<,>).MakeGenericType(typeof(TDbContext), typeof(TEntity)),
             lifetime));
 
+        foreach (var dataService in repoType.GetInterfaces())
+        {
+            services.Add(ServiceDescriptor.Describe(dataService, sp => sp.GetService(repoType), lifetime));
+        }
+        
         return this;
     }
 }

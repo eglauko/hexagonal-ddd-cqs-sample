@@ -1,7 +1,9 @@
+using HexaSamples.Application.Handlers.Ordem;
 using HexaSamples.Domain.OrdemAggregate;
 using HexaSamples.Domain.SupportEntities;
 using HexaSamples.Infra.Persistence.Configs;
 using Microsoft.EntityFrameworkCore;
+using MediatR;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -25,6 +27,7 @@ builder.Services.AddUnitOfWork<SampleDbContext>()
     .AddRepository<Produto>()
     .AddRepository<OrdemDeVenda>();
 
+builder.Services.AddMediatR(typeof(CriarOrdemDeVendaHandler));
 
 var app = builder.Build();
 

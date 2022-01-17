@@ -13,7 +13,7 @@ public class PrecoVenda : Entity<Guid>
     
     protected PrecoVenda() { }
     
-    public Loja Loja { get; }
+    public virtual Loja Loja { get; }
 
     public decimal Valor { get; }
 }
