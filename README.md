@@ -1,2 +1,3 @@
-# hexagonal-ddd-cqs-sample
-Demonstração do uso de padrão arquitetônico hexagonal para DDD com CQS
+# em construção
+
+Demonstração de padrão de arquitetura hexagonal explícita e gritante, com CQS.
